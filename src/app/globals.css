@@ -1,49 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Saira:wdth,wght@87.5,300;87.5,400;87.5,500;87.5,600;87.5,700;87.5,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap');
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --vdso-black:     #050608;
+  --vdso-navy:      #0A1628;
+  --vdso-navy-deep: #06101E;
+  --vdso-midnight:  #0F1B30;
+  --vdso-ink:       #16243C;
+  --vdso-slate:     #1F2D47;
+  --vdso-steel:     #2A3854;
+  --vdso-iron:      #4A5468;
+  --vdso-chrome:    #7E8699;
+  --vdso-silver:    #BCC2CE;
+  --vdso-platinum:  #E4E6EC;
+  --vdso-ivory:     #F4F4F1;
+
+  --vdso-blue:        #2E6BFF;
+  --vdso-blue-bright: #5B8DFF;
+  --vdso-blue-deep:   #1E4FCC;
+  --vdso-blue-glow:   rgba(46,107,255,0.35);
+
+  --vdso-success: #2EC27E;
+  --vdso-warning: #F0A93B;
+  --vdso-danger:  #E5484D;
+
+  --bg-0: var(--vdso-black);
+  --bg-1: var(--vdso-navy);
+  --bg-2: var(--vdso-midnight);
+  --bg-3: var(--vdso-ink);
+  --bg-elevated: #1B2A44;
+
+  --fg-1: var(--vdso-platinum);
+  --fg-2: var(--vdso-silver);
+  --fg-3: var(--vdso-chrome);
+  --fg-4: var(--vdso-iron);
+
+  --stroke-1:        rgba(190,210,255,0.08);
+  --stroke-2:        rgba(190,210,255,0.14);
+  --stroke-3:        rgba(190,210,255,0.22);
+  --stroke-hairline: rgba(190,210,255,0.06);
+
+  --shadow-xs:        0 1px 2px rgba(0,0,0,0.4);
+  --shadow-sm:        0 2px 6px rgba(0,0,0,0.45);
+  --shadow-md:        0 8px 24px rgba(0,0,0,0.5);
+  --shadow-lg:        0 24px 60px rgba(0,0,0,0.6);
+  --shadow-blue-glow: 0 0 24px rgba(46,107,255,0.35), 0 0 1px #2E6BFF;
+
+  --r-xs: 2px; --r-sm: 4px; --r-md: 8px; --r-lg: 12px;
+  --r-xl: 18px; --r-2xl: 24px; --r-pill: 999px;
+
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:20px;
+  --s-6:24px; --s-8:32px; --s-10:40px; --s-12:48px;
+  --s-16:64px; --s-20:80px; --s-24:96px;
+
+  --font-display: 'Saira', 'Saira SemiCondensed', ui-sans-serif, system-ui, sans-serif;
+  --font-body:    'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
+
+  --t-body-lg: 18px; --t-body: 16px; --t-body-sm: 14px;
+  --t-caption: 12px; --t-micro: 11px;
+
+  --lh-body:  1.65;
+  --lh-tight: 1.15;
+
+  --ease-precision:  cubic-bezier(0.2,0.8,0.2,1);
+  --ease-mechanical: cubic-bezier(0.7,0,0.3,1);
+  --dur-fast: 180ms; --dur-base: 260ms; --dur-slow: 440ms;
+
+  --container-max: 1440px;
+  --gutter: clamp(20px,4vw,64px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+a { color: inherit; text-decoration: none; }
 
-html {
-  height: 100%;
-}
-
-html,
 body {
+  background: var(--bg-0);
+  color: var(--fg-1);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
   max-width: 100vw;
   overflow-x: hidden;
 }
 
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 60% at 100% 0%, rgba(46,107,255,0.04), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 0% 100%, rgba(10,22,40,0.6), transparent 60%);
 }
+body > * { position: relative; z-index: 1; }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* ── Shared buttons ──────────────────────────────────── */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px; background: var(--vdso-blue); color: #fff;
+  border: 0; border-radius: var(--r-md);
+  font-family: var(--font-display); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  cursor: pointer; text-decoration: none;
+  transition: box-shadow var(--dur-base) var(--ease-precision), transform var(--dur-fast) var(--ease-precision);
 }
+.btn-primary:hover { box-shadow: var(--shadow-blue-glow); transform: translateY(-1px); }
+.btn-primary:active { transform: scale(0.985); }
+.btn-primary--lg { padding: 14px 28px; font-size: 12px; }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px; background: transparent; color: var(--fg-1);
+  border: 1px solid var(--stroke-3); border-radius: var(--r-md);
+  font-family: var(--font-display); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  cursor: pointer; text-decoration: none;
+  transition: border-color var(--dur-base), background var(--dur-base);
 }
+.btn-secondary:hover { background: rgba(255,255,255,0.04); }
+.btn-secondary--lg { padding: 14px 28px; font-size: 12px; }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px; background: transparent; color: var(--fg-2);
+  border: 1px solid var(--stroke-3); border-radius: var(--r-md);
+  font-family: var(--font-display); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  cursor: pointer; text-decoration: none;
+  transition: color var(--dur-fast), border-color var(--dur-fast);
+}
+.btn-ghost:hover { color: var(--fg-1); border-color: var(--stroke-2); }
+
+/* ── Shared typography helpers ───────────────────────── */
+.section-label {
+  font-family: var(--font-display); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.28em; text-transform: uppercase; color: var(--vdso-blue);
+  margin-bottom: var(--s-3);
+}
+.section-title {
+  font-family: var(--font-display); font-size: clamp(28px,3.5vw,44px); font-weight: 700;
+  letter-spacing: -0.01em; text-transform: uppercase; color: var(--fg-1);
+  line-height: 1.05; margin-bottom: var(--s-4);
+}
+.section-body {
+  font-size: var(--t-body); color: var(--fg-3); line-height: 1.65;
+  max-width: 46ch; margin-bottom: var(--s-8);
+  font-family: var(--font-body);
+}
+.section-wrap {
+  max-width: var(--container-max); margin: 0 auto;
+  padding: var(--s-16) var(--gutter);
 }

@@ -1,0 +1,105 @@
+.root { display: flex; flex-direction: column; gap: 16px; }
+
+/* Basic grid */
+.basicGrid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.label {
+  font-family: var(--font-display); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.20em; text-transform: uppercase; color: var(--fg-4);
+}
+.input, .select {
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.03); border: 1px solid var(--stroke-2);
+  border-radius: var(--r-md); color: var(--fg-1);
+  font-family: var(--font-body); font-size: 13px;
+  outline: none; transition: border-color 180ms; width: 100%;
+}
+.input:focus, .select:focus { border-color: var(--vdso-blue); }
+.select { cursor: pointer; }
+.select option { background: #0A0C14; }
+
+.checkRow {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-display); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-3);
+  cursor: pointer;
+}
+.checkRow input[type="checkbox"] { accent-color: var(--vdso-blue); width: 14px; height: 14px; cursor: pointer; }
+
+/* Kenmerken */
+.kenmerkenHeader {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 4px; border-top: 1px solid var(--stroke-1);
+}
+.sectionLabel {
+  font-family: var(--font-display); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.20em; text-transform: uppercase; color: var(--fg-4);
+}
+.addCatBtn {
+  display: flex; align-items: center; gap: 5px;
+  font-family: var(--font-display); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 6px 12px; background: transparent;
+  border: 1px solid var(--stroke-2); border-radius: var(--r-md);
+  color: var(--fg-3); cursor: pointer;
+  transition: color 160ms, border-color 160ms;
+}
+.addCatBtn:hover { color: var(--fg-1); border-color: var(--stroke-3); }
+
+.empty {
+  font-family: var(--font-body); font-size: 12px; color: var(--fg-4);
+  padding: 12px; border: 1px dashed var(--stroke-1); border-radius: var(--r-md);
+  text-align: center;
+}
+
+.categorie {
+  background: rgba(255,255,255,0.02); border: 1px solid var(--stroke-1);
+  border-radius: var(--r-lg); overflow: hidden;
+}
+.categorieHeader {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px; border-bottom: 1px solid var(--stroke-1);
+  background: rgba(255,255,255,0.02);
+}
+.categorieNaam {
+  flex: 1; background: transparent; border: 0; outline: none;
+  font-family: var(--font-display); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.10em; text-transform: uppercase; color: var(--fg-1);
+}
+.categorieNaam::placeholder { color: var(--fg-4); font-weight: 500; }
+.removeBtn {
+  width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;
+  background: transparent; border: 0; color: var(--fg-4); cursor: pointer;
+  border-radius: var(--r-sm); transition: color 160ms;
+  flex-shrink: 0;
+}
+.removeBtn:hover { color: var(--vdso-danger); }
+
+.items { padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 6px; }
+.itemRow { display: flex; align-items: center; gap: 6px; }
+.itemInput {
+  flex: 1; padding: 7px 10px;
+  background: rgba(255,255,255,0.03); border: 1px solid var(--stroke-1);
+  border-radius: var(--r-sm); color: var(--fg-2);
+  font-family: var(--font-body); font-size: 12px;
+  outline: none; transition: border-color 160ms;
+}
+.itemInput:focus { border-color: var(--vdso-blue); }
+.removeItemBtn {
+  width: 22px; height: 22px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent; border: 0; color: var(--fg-4); cursor: pointer;
+  border-radius: var(--r-sm); transition: color 160ms;
+}
+.removeItemBtn:hover { color: var(--vdso-danger); }
+.addItemBtn {
+  display: inline-flex; align-items: center; gap: 5px; margin-top: 2px;
+  font-family: var(--font-display); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  background: transparent; border: 0; color: var(--fg-4); cursor: pointer;
+  padding: 4px 2px; transition: color 160ms;
+}
+.addItemBtn:hover { color: var(--fg-2); }

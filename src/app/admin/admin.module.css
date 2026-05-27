@@ -1,0 +1,102 @@
+.page {
+  display: flex; min-height: 100vh;
+  background: #050608;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px; flex-shrink: 0;
+  background: var(--bg-1); border-right: 1px solid var(--stroke-1);
+  display: flex; flex-direction: column;
+  padding: 24px 16px;
+  position: sticky; top: 0; height: 100vh;
+}
+.sidebarLogo { margin-bottom: 32px; opacity: 0.85; }
+.sidebarNav { flex: 1; }
+.navItem {
+  display: block; padding: 8px 12px; border-radius: var(--r-md);
+  font-family: var(--font-display); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-4);
+  cursor: pointer; transition: background 160ms, color 160ms;
+}
+.navActive { background: var(--stroke-1); color: var(--fg-1); }
+.sidebarFooter { display: flex; flex-direction: column; gap: 8px; }
+.previewToggle, .logoutBtn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; background: transparent; border: 1px solid var(--stroke-1);
+  border-radius: var(--r-md); color: var(--fg-4); cursor: pointer;
+  font-family: var(--font-display); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  transition: color 160ms, border-color 160ms;
+}
+.previewToggle:hover, .logoutBtn:hover { color: var(--fg-2); border-color: var(--stroke-2); }
+
+/* Main */
+.main { flex: 1; padding: 40px; overflow-y: auto; }
+.topBar {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 32px;
+}
+.pageTitle {
+  font-family: var(--font-display); font-size: 24px; font-weight: 700;
+  text-transform: uppercase; color: var(--fg-1); margin-bottom: 4px;
+}
+.pageCount { font-family: var(--font-mono); font-size: 11px; color: var(--fg-4); }
+
+/* Table */
+.table { display: flex; flex-direction: column; gap: 2px; }
+.tableHead {
+  display: grid; grid-template-columns: 1fr 140px 100px 60px 80px;
+  padding: 8px 16px;
+  font-family: var(--font-display); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.20em; text-transform: uppercase; color: var(--fg-4);
+  border-bottom: 1px solid var(--stroke-1);
+}
+.tableRow {
+  display: grid; grid-template-columns: 1fr 140px 100px 60px 80px;
+  align-items: center; padding: 12px 16px;
+  background: var(--bg-1); border: 1px solid var(--stroke-1);
+  border-radius: var(--r-md); gap: 12px;
+  transition: border-color 160ms;
+}
+.tableRow:hover { border-color: var(--stroke-2); }
+.rowHidden { opacity: 0.45; }
+
+.carInfo { display: flex; align-items: center; gap: 12px; }
+.thumb { border-radius: var(--r-sm); object-fit: cover; }
+.thumbPlaceholder {
+  width: 56px; height: 42px; border-radius: var(--r-sm);
+  background: var(--stroke-1); flex-shrink: 0;
+}
+.carName {
+  font-family: var(--font-display); font-size: 13px; font-weight: 600;
+  color: var(--fg-1); margin-bottom: 2px;
+}
+.carMeta { font-family: var(--font-mono); font-size: 10px; color: var(--fg-4); }
+
+.badgeSelect {
+  padding: 6px 10px; background: var(--bg-2); border: 1px solid var(--stroke-2);
+  border-radius: var(--r-sm); color: var(--fg-2);
+  font-family: var(--font-display); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; outline: none; cursor: pointer;
+}
+.badgeSelect option { background: #0A0C14; }
+
+.price { font-family: var(--font-mono); font-size: 13px; color: var(--fg-2); }
+
+.visibleBtn {
+  background: transparent; border: 0; color: var(--fg-4);
+  cursor: pointer; padding: 4px; border-radius: var(--r-sm);
+  transition: color 160ms;
+}
+.visibleBtn:hover { color: var(--fg-1); }
+
+.rowActions { display: flex; gap: 4px; justify-content: flex-end; }
+.iconBtn {
+  width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
+  background: transparent; border: 1px solid var(--stroke-1);
+  border-radius: var(--r-sm); color: var(--fg-4); cursor: pointer;
+  transition: color 160ms, border-color 160ms;
+}
+.iconBtn:hover { color: var(--fg-1); border-color: var(--stroke-2); }
+.deleteBtn:hover { color: var(--vdso-danger); border-color: var(--vdso-danger); }

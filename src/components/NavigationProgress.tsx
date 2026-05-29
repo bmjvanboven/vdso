@@ -38,12 +38,11 @@ export default function NavigationProgress() {
     return () => document.removeEventListener('click', handleClick)
   }, [pathname])
 
+  // Body-fade uitgeschakeld — PageLoader doet de navigatietransitie
   useEffect(() => {
-    document.body.style.opacity = String(opacity)
-    document.body.style.transition = opacity === 1
-      ? 'opacity 250ms ease'
-      : 'opacity 150ms ease'
-  }, [opacity])
+    document.body.style.opacity = '1'
+    document.body.style.transition = ''
+  }, [])
 
   return null
 }

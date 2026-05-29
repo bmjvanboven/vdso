@@ -1,0 +1,28 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: opacity 250ms ease;
+}
+
+.overlay.hidden {
+  opacity: 0;
+}
+
+.logo {
+  width: clamp(80px, 16vw, 160px);
+  height: auto;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.logo.visible {
+  opacity: 1;
+  transform: scale(1);
+}

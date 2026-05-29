@@ -32,7 +32,7 @@
   padding: 11px 14px;
   background: rgba(255,255,255,0.03); border: 1px solid var(--stroke-2);
   border-radius: var(--r-md); color: var(--fg-1);
-  font-family: var(--font-body); font-size: 14px;
+  font-family: var(--font-body); font-size: 16px;
   outline: none; transition: border-color 180ms;
 }
 .input:focus { border-color: var(--vdso-blue); }

@@ -1,0 +1,330 @@
+/* ============================================================
+   VDSO Design System — Color & Type Foundations
+   Premium mobility · precision · minimalist luxury
+   ============================================================ */
+
+/* ---------- Webfonts (Google Fonts; flagged substitutions) ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Saira:wdth,wght@87.5,300;87.5,400;87.5,500;87.5,600;87.5,700;87.5,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* ------------------------------------------------------------
+     CORE PALETTE — Navy → Platinum
+     Premium automotive: deep navy, true black, cool greys, ivory.
+     Adjacent: BMW Individual, Porsche Night Blue, Mercedes Obsidian.
+     ------------------------------------------------------------ */
+  --vdso-black:     #050608;   /* true near-black, deepest */
+  --vdso-navy:      #0A1628;   /* signature navy, primary brand */
+  --vdso-navy-deep: #06101E;   /* darker navy, hero backgrounds */
+  --vdso-midnight:  #0F1B30;   /* raised surface */
+  --vdso-ink:       #16243C;   /* card / panel */
+  --vdso-slate:     #1F2D47;   /* divider tier */
+  --vdso-steel:     #2A3854;   /* hairline stroke (dark) */
+  --vdso-iron:      #4A5468;   /* muted text / disabled */
+  --vdso-chrome:    #7E8699;   /* mid-gray, secondary text */
+  --vdso-silver:    #BCC2CE;   /* cool light gray */
+  --vdso-platinum:  #E4E6EC;   /* near-white, body text on dark */
+  --vdso-ivory:     #F4F4F1;   /* warm off-white, premium light surface */
+  --vdso-paper:     #FFFFFF;
+
+  /* Legacy alias — some components reference --vdso-obsidian */
+  --vdso-obsidian: var(--vdso-black);
+  --vdso-carbon:   var(--vdso-navy);
+  --vdso-graphite: var(--vdso-midnight);
+  --vdso-onyx:     var(--vdso-ink);
+
+  /* ------------------------------------------------------------
+     SIGNATURE ACCENT — "Signal Blue"
+     Electric premium blue.  Reserved for primary CTAs, the
+     active state of the O in the logo, key data emphasis, focus
+     rings, status "available".  NEVER two accents in one frame.
+     ------------------------------------------------------------ */
+  --vdso-blue:        #2E6BFF;   /* signature electric blue */
+  --vdso-blue-bright: #5B8DFF;   /* hover / highlighted */
+  --vdso-blue-deep:   #1E4FCC;   /* pressed / depth */
+  --vdso-blue-glow:   rgba(46, 107, 255, 0.35);
+
+  /* Legacy alias */
+  --vdso-voltage:        var(--vdso-blue);
+  --vdso-voltage-bright: var(--vdso-blue-bright);
+  --vdso-voltage-deep:   var(--vdso-blue-deep);
+  --vdso-voltage-glow:   var(--vdso-blue-glow);
+
+  /* ------------------------------------------------------------
+     SEMANTIC — desaturated, technical, not playful
+     ------------------------------------------------------------ */
+  --vdso-success: #2EC27E;
+  --vdso-warning: #F0A93B;
+  --vdso-danger:  #E5484D;
+  --vdso-info:    var(--vdso-blue);
+
+  /* ------------------------------------------------------------
+     FOREGROUND / BACKGROUND — DARK theme (default)
+     ------------------------------------------------------------ */
+  --bg-0: var(--vdso-black);
+  --bg-1: var(--vdso-navy);
+  --bg-2: var(--vdso-midnight);
+  --bg-3: var(--vdso-ink);
+  --bg-elevated: #1B2A44;
+
+  --fg-1: var(--vdso-platinum);     /* primary text */
+  --fg-2: var(--vdso-silver);       /* secondary text */
+  --fg-3: var(--vdso-chrome);       /* tertiary / labels */
+  --fg-4: var(--vdso-iron);         /* disabled / hint */
+
+  --stroke-1: rgba(190, 210, 255, 0.08);
+  --stroke-2: rgba(190, 210, 255, 0.14);
+  --stroke-3: rgba(190, 210, 255, 0.22);
+  --stroke-hairline: rgba(190, 210, 255, 0.06);
+
+  --accent: var(--vdso-blue);
+  --accent-fg: #FFFFFF;   /* text on Signal Blue */
+
+  /* ------------------------------------------------------------
+     GRADIENTS — used SPARINGLY for chrome / depth, not flair.
+     Never colorful.  Only steel-on-steel, or accent glow.
+     ------------------------------------------------------------ */
+  --grad-chrome:
+    linear-gradient(180deg, #C0C5CF 0%, #74798A 35%, #2A3854 65%, #0A1628 100%);
+  --grad-brushed:
+    linear-gradient(180deg, #2A3854 0%, #16243C 50%, #06101E 100%);
+  --grad-fade-down:
+    linear-gradient(180deg, transparent 0%, var(--vdso-black) 100%);
+  --grad-vignette:
+    radial-gradient(ellipse 80% 60% at 50% 40%, transparent 0%, rgba(0,0,0,0.7) 100%);
+  --grad-blue-glow:
+    radial-gradient(circle, var(--vdso-blue-glow) 0%, transparent 70%);
+  --grad-voltage-glow: var(--grad-blue-glow);
+  --grad-navy-hero:
+    linear-gradient(135deg, #0A1628 0%, #06101E 60%, #050608 100%);
+
+  /* ------------------------------------------------------------
+     SHADOWS — restrained, cool-toned, technical
+     ------------------------------------------------------------ */
+  --shadow-xs:  0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm:  0 2px 6px rgba(0, 0, 0, 0.45);
+  --shadow-md:  0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg:  0 24px 60px rgba(0, 0, 0, 0.6);
+  --shadow-xl:  0 40px 100px rgba(0, 0, 0, 0.7);
+  --shadow-inset-top:    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --shadow-inset-bottom: inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  --shadow-blue-glow: 0 0 24px var(--vdso-blue-glow), 0 0 1px var(--vdso-blue);
+  --shadow-voltage-glow: var(--shadow-blue-glow);
+
+  /* ------------------------------------------------------------
+     RADII — geometric, never overly soft.  Mirrors the logo's
+     slightly-rounded-rect language (the O is an oval rect).
+     ------------------------------------------------------------ */
+  --r-0:  0px;
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 18px;
+  --r-2xl: 24px;
+  --r-pill: 999px;
+
+  /* ------------------------------------------------------------
+     SPACING — 4px base grid.  Use the scale, not arbitrary px.
+     ------------------------------------------------------------ */
+  --s-0:  0px;
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-8:  32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+  --s-32: 128px;
+
+  /* ------------------------------------------------------------
+     TYPOGRAPHY — font stacks
+     Display: Saira SemiCondensed (geometric, extended, automotive).
+     Body:    Geist (neutral grotesk, premium).
+     Mono:    Geist Mono (telemetry, data, code).
+     ------------------------------------------------------------ */
+  --font-display: 'Saira', 'Saira SemiCondensed',
+                  'Eurostile', 'Bahnschrift Condensed',
+                  ui-sans-serif, system-ui, sans-serif;
+  --font-body:    'Geist', 'Inter', 'SF Pro Text',
+                  ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    'Geist Mono', 'JetBrains Mono',
+                  ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Type scale — generous, confident, never cramped */
+  --t-display-2xl: clamp(72px, 9vw, 144px);  /* hero, single-word statements */
+  --t-display-xl:  clamp(56px, 6.5vw, 104px);
+  --t-display-lg:  clamp(40px, 4.5vw, 72px);
+  --t-display-md:  clamp(32px, 3.5vw, 56px);
+  --t-h1: 44px;
+  --t-h2: 32px;
+  --t-h3: 24px;
+  --t-h4: 20px;
+  --t-h5: 17px;
+  --t-body-lg: 18px;
+  --t-body:    16px;
+  --t-body-sm: 14px;
+  --t-caption: 12px;
+  --t-micro:   11px;   /* eyebrow / legal */
+
+  /* Tracking — Saira display gets WIDE tracking; Geist body gets tight */
+  --tr-display-wide:  0.16em;    /* eyebrow, model name */
+  --tr-display:       0.04em;    /* large headlines */
+  --tr-body:         -0.01em;
+  --tr-tight:        -0.02em;
+  --tr-mono:          0.02em;
+
+  --lh-display: 0.95;
+  --lh-tight:   1.1;
+  --lh-snug:    1.25;
+  --lh-body:    1.5;
+  --lh-loose:   1.7;
+
+  /* ------------------------------------------------------------
+     MOTION — engineered easing.  Never bouncy, never elastic.
+     Mechanical, weighted, with a slight tail (like a door close).
+     ------------------------------------------------------------ */
+  --ease-precision: cubic-bezier(0.2, 0.8, 0.2, 1);    /* default */
+  --ease-mechanical: cubic-bezier(0.7, 0, 0.3, 1);     /* heavy / mass */
+  --ease-instant: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --dur-instant: 100ms;
+  --dur-fast:    180ms;
+  --dur-base:    260ms;
+  --dur-slow:    440ms;
+  --dur-ambient: 800ms;
+
+  /* ------------------------------------------------------------
+     LAYOUT
+     ------------------------------------------------------------ */
+  --container-max: 1440px;
+  --gutter: clamp(20px, 4vw, 64px);
+  --safe-top: max(16px, env(safe-area-inset-top));
+}
+
+/* ============================================================
+   LIGHT THEME — invert surfaces, keep the accent constant.
+   Used in showroom marketing pages and printed material.
+   ============================================================ */
+[data-theme="light"], .theme-light {
+  --bg-0: var(--vdso-ivory);
+  --bg-1: var(--vdso-paper);
+  --bg-2: #FAFAF8;
+  --bg-3: #F2F2F0;
+  --bg-elevated: #FFFFFF;
+
+  --fg-1: var(--vdso-navy);
+  --fg-2: #1F2D47;
+  --fg-3: var(--vdso-iron);
+  --fg-4: var(--vdso-chrome);
+
+  --stroke-1: rgba(10, 22, 40, 0.10);
+  --stroke-2: rgba(10, 22, 40, 0.16);
+  --stroke-3: rgba(10, 22, 40, 0.24);
+  --stroke-hairline: rgba(10, 22, 40, 0.06);
+
+  --shadow-xs: 0 1px 2px rgba(10, 22, 40, 0.06);
+  --shadow-sm: 0 2px 8px rgba(10, 22, 40, 0.08);
+  --shadow-md: 0 8px 24px rgba(10, 22, 40, 0.10);
+  --shadow-lg: 0 24px 60px rgba(10, 22, 40, 0.14);
+}
+
+/* ============================================================
+   SEMANTIC ROLES — use these in app code, not raw tokens.
+   ============================================================ */
+.vdso-display-2xl {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--t-display-2xl);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tr-display);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+.vdso-display-xl {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--t-display-xl);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tr-display);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+.vdso-display-lg {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-display-lg);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-display);
+  text-transform: uppercase;
+  color: var(--fg-1);
+}
+.vdso-display-md {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-display-md);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-display);
+  color: var(--fg-1);
+}
+
+.vdso-h1 { font: 500 var(--t-h1)/var(--lh-tight) var(--font-body); letter-spacing: var(--tr-tight); color: var(--fg-1); }
+.vdso-h2 { font: 500 var(--t-h2)/var(--lh-tight) var(--font-body); letter-spacing: var(--tr-tight); color: var(--fg-1); }
+.vdso-h3 { font: 500 var(--t-h3)/var(--lh-snug) var(--font-body); letter-spacing: var(--tr-body); color: var(--fg-1); }
+.vdso-h4 { font: 500 var(--t-h4)/var(--lh-snug) var(--font-body); letter-spacing: var(--tr-body); color: var(--fg-1); }
+.vdso-h5 { font: 600 var(--t-h5)/var(--lh-snug) var(--font-body); letter-spacing: var(--tr-body); color: var(--fg-1); }
+
+.vdso-body-lg { font: 400 var(--t-body-lg)/var(--lh-body) var(--font-body); letter-spacing: var(--tr-body); color: var(--fg-2); }
+.vdso-body    { font: 400 var(--t-body)/var(--lh-body) var(--font-body); letter-spacing: var(--tr-body); color: var(--fg-2); }
+.vdso-body-sm { font: 400 var(--t-body-sm)/var(--lh-body) var(--font-body); letter-spacing: 0; color: var(--fg-2); }
+.vdso-caption { font: 500 var(--t-caption)/var(--lh-snug) var(--font-body); letter-spacing: 0.02em; color: var(--fg-3); }
+
+/* Eyebrow / label — the signature treatment.  ALL CAPS, very wide track.
+   Used over every section heading, on every metric, on every model name. */
+.vdso-eyebrow {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--t-micro);
+  letter-spacing: var(--tr-display-wide);
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+/* Mono — telemetry, technical readouts, the "instruments" voice */
+.vdso-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: 'tnum' 1, 'ss01' 1;
+  letter-spacing: var(--tr-mono);
+}
+.vdso-readout {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-feature-settings: 'tnum' 1;
+  letter-spacing: var(--tr-mono);
+  color: var(--fg-1);
+}
+
+/* Numerals — big metric callouts (range, 0-60, kWh).  Display font,
+   tabular figures for alignment. */
+.vdso-numeral {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-feature-settings: 'tnum' 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* ============================================================
+   GLOBAL — base reset hooks
+   ============================================================ */
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { font-family: var(--font-body); color: var(--fg-1); background: var(--bg-0); }
+
+::selection { background: var(--vdso-voltage); color: var(--vdso-obsidian); }

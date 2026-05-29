@@ -65,9 +65,9 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
       <div className={styles.specsStrip}>
         <div className={styles.specsInner}>
           <div className={styles.specItem}>
-            <p className={styles.specLabel}>Occasions</p>
-            <p className={styles.specValue}>85<span className={styles.specUnit}>+</span></p>
-            <p className={styles.specSub}>Direct beschikbaar</p>
+            <p className={styles.specLabel}>Ervaring</p>
+            <p className={styles.specValue}>10<span className={styles.specUnit}>+</span></p>
+            <p className={styles.specSub}>Jaar in de branche</p>
           </div>
           <div className={styles.specItem}>
             <p className={styles.specLabel}>Merken</p>
@@ -109,11 +109,7 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
       {/* ── OCCASIONS ─────────────────────────────────── */}
       <section id="occasions" className={`${styles.feature}`}>
         <div className={styles.featureLayout}>
-          <div className={styles.featureVisual} style={{ backgroundImage: `linear-gradient(to bottom, rgba(5,6,8,0.25) 0%, rgba(5,6,8,0.65) 100%), url('/uploads/occassion-image.jpg')` }}>
-            <div className={styles.featureCallout}>
-              <p className={styles.featureCalloutLabel}>Occasions</p>
-              <p className={styles.featureCalloutValue}>85<span className={styles.featureCalloutUnit}>+</span></p>
-            </div>
+          <div className={styles.featureVisual} style={{ backgroundImage: `linear-gradient(to bottom, rgba(5,6,8,0.25) 0%, rgba(5,6,8,0.65) 100%), url('/uploads/sectie-occassions.jpg')` }}>
           </div>
           <div>
             <p className="section-label">Curated selectie</p>
@@ -143,7 +139,7 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
               <Pillar icon={<FileText size={17} />} label="Papierwerk" value="Wij regelen het" />
             </div>
           </div>
-          <div className={styles.featureVisual} style={{ backgroundImage: `linear-gradient(to bottom, rgba(5,6,8,0.25) 0%, rgba(5,6,8,0.65) 100%), url('/uploads/inruil-taxatie-image.jpg')` }}>
+          <div className={styles.featureVisual} style={{ backgroundImage: `linear-gradient(to bottom, rgba(5,6,8,0.25) 0%, rgba(5,6,8,0.65) 100%), url('/uploads/extra-optie-foto-2.jpg')` }}>
             <div className={`${styles.featureCallout} ${styles.featureCalloutTop}`}>
               <p className={styles.featureCalloutLabel}>Taxatie</p>
               <p className={`${styles.featureCalloutValue} ${styles.featureCalloutValueSm}`}>Zelfde dag.<br />Eerlijk geprijsd.</p>
@@ -229,7 +225,7 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
             <h2 className="section-title">Maak kennis<br />in persoon.</h2>
             <p className="section-body">Onze showroom is geopend op afspraak. Plan een proefrit, bespreek uw configuratie of maak kennis met het VDSO-team.</p>
             <div className={styles.showroomDetails}>
-              <ShowroomDetail icon={<MapPin size={15} />} label="Adres" value="VDSO Showroom — Markt 1, Deurne" />
+              <ShowroomDetail icon={<MapPin size={15} />} label="Adres" value="VDSO Showroom — Deurne" />
               <ShowroomDetail icon={<Clock size={15} />} label="Openingstijden" value="Ma–Vr 09:00–18:00 · Za 10:00–17:00 · Op afspraak" />
               <ShowroomDetail icon={<Phone size={15} />} label="Contact" value="+31 20 000 0000 · showroom@vdso.nl" />
             </div>

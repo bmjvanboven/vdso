@@ -8,9 +8,9 @@ import styles from './Nav.module.css'
 const NAV_LINKS = [
   { href: '/#aanbod',      label: 'Aanbod' },
   { href: '/#occasions',   label: 'Occasions' },
-  { href: '/#inruil',      label: 'Inruil' },
+  { href: '/#inkoop',      label: 'Inkoop' },
   { href: '/#consignatie', label: 'Consignatie' },
-  { href: '/#showroom',    label: 'Showroom' },
+  { href: '/#op-afspraak', label: 'Op afspraak' },
 ]
 
 export default function Nav({ onProefrit }: { onProefrit?: () => void }) {
@@ -47,8 +47,8 @@ export default function Nav({ onProefrit }: { onProefrit?: () => void }) {
 
         {/* Desktop actions */}
         <div className={styles.actions}>
-          <a href="tel:+31200000000" className={styles.phone}>
-            <Phone size={13} /> 020 000 00 00
+          <a href="tel:+31622580038" className={styles.phone}>
+            <Phone size={13} /> +31 6 22580038
           </a>
           <button className="btn-primary" onClick={onProefrit}>
             Plan proefrit <ArrowRight size={13} />
@@ -78,8 +78,8 @@ export default function Nav({ onProefrit }: { onProefrit?: () => void }) {
             ))}
           </ul>
           <div className={styles.mobileActions}>
-            <a href="tel:+31200000000" className={styles.mobilePhone} onClick={close}>
-              <Phone size={15} /> 020 000 00 00
+            <a href="tel:+31622580038" className={styles.mobilePhone} onClick={close}>
+              <Phone size={15} /> +31 6 22580038
             </a>
             <button className="btn-primary" style={{ width: '100%', justifyContent: 'center', padding: '14px' }} onClick={handleProefrit}>
               Plan proefrit <ArrowRight size={14} />

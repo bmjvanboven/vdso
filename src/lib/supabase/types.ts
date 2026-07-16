@@ -1,4 +1,4 @@
-export type BadgeStatus = 'net_binnen' | 'beschikbaar' | 'bijna_weg' | 'gereserveerd' | 'verkocht'
+export type BadgeStatus = 'wordt_verwacht' | 'net_binnen' | 'beschikbaar' | 'bijna_weg' | 'gereserveerd' | 'verkocht'
 
 export interface CarSpecs {
   kleur?: string
@@ -59,6 +59,7 @@ export interface Database {
 }
 
 export const BADGE_LABELS: Record<BadgeStatus, string> = {
+  wordt_verwacht: 'Wordt verwacht',
   net_binnen: 'Net binnen',
   beschikbaar: 'Beschikbaar',
   bijna_weg: 'Bijna weg',

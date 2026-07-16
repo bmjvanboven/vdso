@@ -15,6 +15,7 @@ import { BADGE_LABELS } from '@/lib/supabase/types'
 import styles from './carDetail.module.css'
 
 const BADGE_COLOR: Record<BadgeStatus, string> = {
+  wordt_verwacht: '#4FC3D9',
   net_binnen:   'var(--vdso-blue)',
   beschikbaar:  'var(--vdso-success)',
   bijna_weg:    'var(--vdso-warning)',
@@ -128,7 +129,6 @@ export default function CarDetailClient({
               <SpecBlock icon={<Zap size={16} />} label="Vermogen" value={`${car.pk} pk`} />
               <SpecBlock icon={<Navigation size={16} />} label="Kilometerstand" value={`${car.kmstand.toLocaleString('nl')} km`} />
               <SpecBlock icon={<Calendar size={16} />} label="Bouwjaar" value={`${car.jaar}${car.specs?.datum ? ` · ${car.specs.datum}` : ''}`} />
-              <SpecBlock icon={<ShieldCheck size={16} />} label="Garantie" value="12 maanden" />
               {car.specs?.carrosserie && <SpecBlock icon={<CarIcon size={16} />} label="Carrosserie" value={car.specs.carrosserie} />}
               {car.specs?.brandstof && <SpecBlock icon={<Fuel size={16} />} label="Brandstof" value={car.specs.brandstof} />}
               {car.specs?.transmissie && <SpecBlock icon={<Settings2 size={16} />} label="Transmissie" value={car.specs.transmissie} />}
@@ -166,7 +166,7 @@ export default function CarDetailClient({
               <div className={styles.highlights}>
                 <p className={styles.highlightsLabel}>Standaard kenmerken</p>
                 <ul className={styles.highlightList}>
-                  {['BOVAG gecertificeerd','12 mnd dealer-garantie','Volledig dealer onderhouden','NAP-gekeurd','Inruil mogelijk','Financiering beschikbaar'].map(h => (
+                  {['RDW erkend','Volledig dealer onderhouden','NAP-gekeurd','Inruil mogelijk','Financiering beschikbaar'].map(h => (
                     <li key={h} className={styles.highlightItem}>
                       <CheckCircle size={13} className={styles.highlightIcon} />
                       {h}
@@ -213,8 +213,7 @@ export default function CarDetailClient({
               <div className={styles.cardDivider} />
 
               <div className={styles.cardTrust}>
-                <TrustItem icon={<ShieldCheck size={13} />} text="BOVAG gecertificeerd" />
-                <TrustItem icon={<CheckCircle size={13} />} text="12 mnd dealer-garantie" />
+                <TrustItem icon={<ShieldCheck size={13} />} text="RDW erkend" />
                 <TrustItem icon={<CheckCircle size={13} />} text="Inruil mogelijk" />
               </div>
             </div>
@@ -240,7 +239,7 @@ export default function CarDetailClient({
       {/* Footer */}
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
-          <p className={styles.footerLegal}>© 2026 VDSO B.V. · BOVAG-lid · KvK 00000000</p>
+          <p className={styles.footerLegal}>© 2026 VDSO B.V. · RDW erkend · KvK 00000000</p>
         </div>
       </footer>
     </>

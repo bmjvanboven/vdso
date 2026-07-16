@@ -60,7 +60,7 @@
   background: var(--bg-1);
 }
 .specsInner {
-  display: grid; grid-template-columns: repeat(4,1fr);
+  display: grid; grid-template-columns: repeat(3,1fr);
   max-width: var(--container-max); margin: 0 auto;
 }
 .specItem {

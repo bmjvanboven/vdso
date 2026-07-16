@@ -5,6 +5,7 @@ import type { Car, BadgeStatus } from '@/lib/supabase/types'
 import styles from './CarCard.module.css'
 
 const BADGE_COLOR: Record<BadgeStatus, string> = {
+  wordt_verwacht: '#4FC3D9',
   net_binnen:   'var(--vdso-blue)',
   beschikbaar:  'var(--vdso-success)',
   bijna_weg:    'var(--vdso-warning)',
@@ -12,6 +13,7 @@ const BADGE_COLOR: Record<BadgeStatus, string> = {
   verkocht:     'rgba(255,255,255,0.30)',
 }
 const BADGE_LABEL: Record<BadgeStatus, string> = {
+  wordt_verwacht: 'Wordt verwacht',
   net_binnen:   'Net binnen',
   beschikbaar:  'Beschikbaar',
   bijna_weg:    'Bijna weg',

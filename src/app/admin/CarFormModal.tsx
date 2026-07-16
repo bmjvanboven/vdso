@@ -14,7 +14,14 @@ interface Props {
   onSaved: (car: Car, isNew: boolean) => void
 }
 
-const EMPTY: Omit<Car, 'id' | 'created_at'> = {
+type FormState = Omit<Car, 'id' | 'created_at' | 'jaar' | 'pk' | 'kmstand' | 'prijs'> & {
+  jaar: number | ''
+  pk: number | ''
+  kmstand: number | ''
+  prijs: number | ''
+}
+
+const EMPTY: FormState = {
   merk: '', model: '', jaar: new Date().getFullYear(), pk: 0,
   kmstand: 0, prijs: 0, badge_status: 'net_binnen',
   fotos: [], omschrijving: null, specs: null, is_visible: true,
@@ -23,7 +30,7 @@ const EMPTY: Omit<Car, 'id' | 'created_at'> = {
 
 export default function CarFormModal({ car, onClose, onSaved }: Props) {
   const isNew = !car
-  const [form, setForm] = useState(isNew ? EMPTY : {
+  const [form, setForm] = useState<FormState>(isNew ? EMPTY : {
     merk: car.merk, model: car.model, jaar: car.jaar, pk: car.pk,
     kmstand: car.kmstand, prijs: car.prijs, badge_status: car.badge_status,
     fotos: car.fotos ?? [], omschrijving: car.omschrijving,
@@ -60,8 +67,8 @@ export default function CarFormModal({ car, onClose, onSaved }: Props) {
     setSaving(true); setError('')
     const payload = {
       merk: form.merk.trim(), model: form.model.trim(),
-      jaar: Number(form.jaar), pk: Number(form.pk),
-      kmstand: Number(form.kmstand), prijs: Number(form.prijs),
+      jaar: Number(form.jaar) || 0, pk: Number(form.pk) || 0,
+      kmstand: Number(form.kmstand) || 0, prijs: Number(form.prijs) || 0,
       badge_status: form.badge_status, fotos: form.fotos,
       omschrijving: form.omschrijving || null,
       specs: specsValue,
@@ -130,22 +137,22 @@ export default function CarFormModal({ car, onClose, onSaved }: Props) {
           <div className={styles.row3}>
             <div className={styles.field}>
               <label className={styles.label}>Jaar</label>
-              <input className={styles.input} type="number" value={form.jaar} onChange={e => set('jaar', Number(e.target.value))} required min={1990} max={2030} />
+              <input className={styles.input} type="number" value={form.jaar} onChange={e => set('jaar', e.target.value === '' ? '' : Number(e.target.value))} required min={1990} max={2030} />
             </div>
             <div className={styles.field}>
               <label className={styles.label}>PK</label>
-              <input className={styles.input} type="number" value={form.pk} onChange={e => set('pk', Number(e.target.value))} required min={0} />
+              <input className={styles.input} type="number" value={form.pk} onChange={e => set('pk', e.target.value === '' ? '' : Number(e.target.value))} required min={0} />
             </div>
             <div className={styles.field}>
               <label className={styles.label}>Kilometerstand</label>
-              <input className={styles.input} type="number" value={form.kmstand} onChange={e => set('kmstand', Number(e.target.value))} required min={0} />
+              <input className={styles.input} type="number" value={form.kmstand} onChange={e => set('kmstand', e.target.value === '' ? '' : Number(e.target.value))} required min={0} />
             </div>
           </div>
 
           <div className={styles.row2}>
             <div className={styles.field}>
               <label className={styles.label}>Vraagprijs (€)</label>
-              <input className={styles.input} type="number" value={form.prijs} onChange={e => set('prijs', Number(e.target.value))} required min={0} />
+              <input className={styles.input} type="number" value={form.prijs} onChange={e => set('prijs', e.target.value === '' ? '' : Number(e.target.value))} required min={0} />
             </div>
             <div className={styles.field}>
               <label className={styles.label}>Status</label>

@@ -12,6 +12,7 @@ import styles from './AanbodClient.module.css'
 
 const FILTERS: { key: BadgeStatus | 'all'; label: string; color?: string }[] = [
   { key: 'all', label: 'Alle' },
+  { key: 'wordt_verwacht', label: 'Wordt verwacht', color: '#4FC3D9' },
   { key: 'net_binnen', label: 'Net binnen', color: 'var(--vdso-blue)' },
   { key: 'beschikbaar', label: 'Beschikbaar', color: 'var(--vdso-success)' },
   { key: 'bijna_weg', label: 'Bijna weg', color: 'var(--vdso-warning)' },
@@ -35,7 +36,7 @@ export default function AanbodClient({ cars, showGate }: { cars: Car[]; showGate
       <div className={styles.header}>
         <p className={styles.eyebrow}>VDSO · Deurne</p>
         <h1 className={styles.title}>Ons aanbod.</h1>
-        <p className={styles.sub}>Elk voertuig persoonlijk geselecteerd. RS-modellen, M-series, AMG — uitsluitend de beste occasions.</p>
+        <p className={styles.sub}>Elk voertuig persoonlijk geselecteerd: RS-modellen, M-series en AMG, uitsluitend de beste occasions.</p>
         <p className={styles.count}><span>{visible.length}</span> voertuigen</p>
       </div>
 
@@ -69,7 +70,7 @@ export default function AanbodClient({ cars, showGate }: { cars: Car[]; showGate
       <footer className={styles.footer}>
         <Link href="/" className={styles.back}><ArrowLeft size={12} /> Terug naar home</Link>
         <Image src="/uploads/logo-concept-navigatie.png" alt="VDSO" width={80} height={24} style={{ opacity: 0.5 }} />
-        <p className={styles.legal}>© 2026 VDSO B.V. · BOVAG-lid</p>
+        <p className={styles.legal}>© 2026 VDSO B.V. · RDW erkend</p>
       </footer>
     </>
   )

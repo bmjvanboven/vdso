@@ -21,5 +21,5 @@ export default async function CarDetailPage({ params }: { params: Promise<{ id: 
   const { data: settingsRaw } = await supabase.from('settings').select('*').eq('id', 1).single()
   const settings = settingsRaw as Settings | null
 
-  return <CarDetailClient car={car} related={related} phone={settings?.phone ?? '020 000 00 00'} />
+  return <CarDetailClient car={car} related={related} phone={settings?.phone ?? '+31 6 22580038'} />
 }

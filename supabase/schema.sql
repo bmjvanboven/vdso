@@ -14,7 +14,7 @@ create table if not exists public.cars (
   kmstand       int  not null default 0,
   prijs         int  not null default 0,
   badge_status  text not null default 'net_binnen'
-                  check (badge_status in ('net_binnen','beschikbaar','bijna_weg','gereserveerd','verkocht')),
+                  check (badge_status in ('wordt_verwacht','net_binnen','beschikbaar','bijna_weg','gereserveerd','verkocht')),
   fotos         text[] not null default '{}',
   omschrijving  text,
   is_visible    boolean not null default true
@@ -23,7 +23,7 @@ create table if not exists public.cars (
 -- Settings tabel (1 rij)
 create table if not exists public.settings (
   id              int primary key default 1,
-  phone           text not null default '020 000 00 00',
+  phone           text not null default '+31 6 22580038',
   adres           text not null default 'Markt 1, Deurne',
   openingstijden  text not null default 'Ma–Vr 09:00–18:00 · Za 10:00–16:00',
   preview_mode    boolean not null default false,
@@ -70,6 +70,25 @@ create policy "admin update settings"
 -- ============================================================
 
 -- Of via SQL (als de bucket nog niet bestaat):
--- insert into storage.buckets (id, name, public)
--- values ('car-photos', 'car-photos', true)
--- on conflict (id) do nothing;
+insert into storage.buckets (id, name, public)
+values ('car-photos', 'car-photos', true)
+on conflict (id) do nothing;
+
+-- RLS policies voor storage.objects (car-photos bucket)
+-- Zonder deze policies geeft upload: "new row violates row-level security policy"
+create policy "public read car-photos"
+  on storage.objects for select
+  using (bucket_id = 'car-photos');
+
+create policy "admin upload car-photos"
+  on storage.objects for insert
+  with check (bucket_id = 'car-photos' and auth.role() = 'authenticated');
+
+create policy "admin update car-photos"
+  on storage.objects for update
+  using (bucket_id = 'car-photos' and auth.role() = 'authenticated')
+  with check (bucket_id = 'car-photos' and auth.role() = 'authenticated');
+
+create policy "admin delete car-photos"
+  on storage.objects for delete
+  using (bucket_id = 'car-photos' and auth.role() = 'authenticated');

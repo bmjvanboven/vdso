@@ -6,7 +6,7 @@ import PageLoader from '@/components/PageLoader'
 
 export const metadata: Metadata = {
   title: 'VDSO — Premium Occasions Deurne',
-  description: 'Handpicked premium occasions. RS-modellen, M-series, AMG — zorgvuldig geselecteerd.',
+  description: 'Handpicked premium occasions: RS-modellen, M-series en AMG, zorgvuldig geselecteerd.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

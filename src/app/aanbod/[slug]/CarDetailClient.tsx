@@ -12,6 +12,7 @@ import ProefritModal from '@/components/ProefritModal'
 import CarCard from '@/components/CarCard'
 import type { Car, BadgeStatus } from '@/lib/supabase/types'
 import { BADGE_LABELS } from '@/lib/supabase/types'
+import { parseDescription } from '@/lib/description'
 import styles from './carDetail.module.css'
 
 const BADGE_COLOR: Record<BadgeStatus, string> = {
@@ -262,7 +263,7 @@ export default function CarDetailClient({
             {car.omschrijving && (
               <div className={styles.description}>
                 <p className={styles.descriptionLabel}>Omschrijving</p>
-                <p className={styles.descriptionText}>{car.omschrijving}</p>
+                <Description text={car.omschrijving} />
               </div>
             )}
 
@@ -383,5 +384,21 @@ function TrustItem({ icon, text }: { icon: React.ReactNode; text: string }) {
       {icon}
       <span>{text}</span>
     </div>
+  )
+}
+
+function Description({ text }: { text: string }) {
+  return (
+    <>
+      {parseDescription(text).map((block, i) => {
+        if (block.type === 'p') return <p key={i} className={styles.descriptionText}>{block.text}</p>
+        const ListTag = block.type
+        return (
+          <ListTag key={i} className={styles.descriptionList}>
+            {block.items.map((item, j) => <li key={j}>{item}</li>)}
+          </ListTag>
+        )
+      })}
+    </>
   )
 }

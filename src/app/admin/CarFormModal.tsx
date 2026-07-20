@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import type { Car, BadgeStatus } from '@/lib/supabase/types'
 import { BADGE_LABELS } from '@/lib/supabase/types'
+import { parseDescription } from '@/lib/description'
 import SpecsEditor from './SpecsEditor'
 import styles from './carFormModal.module.css'
 
@@ -223,7 +224,21 @@ export default function CarFormModal({ car, newSortOrder, onClose, onSaved }: Pr
 
           <div className={styles.field}>
             <label className={styles.label}>Omschrijving</label>
-            <textarea className={styles.textarea} value={form.omschrijving ?? ''} onChange={e => set('omschrijving', e.target.value || null)} rows={3} placeholder="Optionele beschrijving…" />
+            <textarea className={styles.textarea} value={form.omschrijving ?? ''} onChange={e => set('omschrijving', e.target.value || null)} rows={6} placeholder="Optionele beschrijving…" />
+            {form.omschrijving && (
+              <div className={styles.descPreview}>
+                <p className={styles.descPreviewLabel}>Voorvertoning op de website</p>
+                {parseDescription(form.omschrijving).map((block, i) => {
+                  if (block.type === 'p') return <p key={i} className={styles.descPreviewText}>{block.text}</p>
+                  const ListTag = block.type
+                  return (
+                    <ListTag key={i} className={styles.descPreviewList}>
+                      {block.items.map((item, j) => <li key={j}>{item}</li>)}
+                    </ListTag>
+                  )
+                })}
+              </div>
+            )}
           </div>
 
           <div className={styles.section}>

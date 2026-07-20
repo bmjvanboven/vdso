@@ -45,6 +45,8 @@ Aantekeningen omgezet naar takenlijst. Ongesorteerd op prioriteit — nog te bep
 - [x] Admin: meerdere foto's tegelijk kunnen uploaden
 - [x] Admin: foto's automatisch comprimeren bij upload + max bestandsgrootte (20MB)
 - [x] Admin: volgorde van auto's kunnen verslepen — bepaalt ook de volgorde op de website (nieuwe sort_order kolom in database)
+- [x] **Bug:** bullets/genummerde lijsten uit geplakte omschrijving (bijv. vanuit ChatGPT) werden platte laptekst — ook opgelost voor lijsten zónder bullet-teken (bijv. gekopieerd vanuit een gerenderde chat-lijst, waar de streepjes soms wegvallen); 2+ losse regels zonder witregel worden nu ook herkend als lijst
+- [x] Admin: live voorvertoning van de omschrijving (met bullets/nummering) onder het tekstveld bij het bewerken van een auto
 
 ## Techniek
 - [x] Cronjob voor database instellen

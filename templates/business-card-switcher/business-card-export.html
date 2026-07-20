@@ -1,0 +1,83 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>VDSO Visitekaartje</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<template id="__bundler_thumbnail"><svg viewBox="0 0 80 56" xmlns="http://www.w3.org/2000/svg"><rect width="80" height="56" fill="#0A1628"/><text x="40" y="32" font-family="sans-serif" font-size="14" font-weight="700" fill="#E4E6EC" text-anchor="middle" letter-spacing="2">VDSO</text></svg></template>
+<style>
+.card-face{width:85mm;height:55mm;position:relative;overflow:hidden;box-sizing:border-box;border-radius:1.4mm}
+[contenteditable]:hover{outline:1px dashed var(--vdso-blue);outline-offset:2px}
+[contenteditable]:focus{outline:1px solid var(--vdso-blue);outline-offset:2px}
+.print-sheet{display:none}
+@media print{
+  @page{margin:0}
+  body>*:not(.print-sheet){display:none!important}
+  .print-sheet{display:block!important}
+  .print-card{position:relative;box-sizing:border-box;page-break-after:always}
+  body[data-bleed="0"] .print-card{width:85mm;height:55mm;overflow:hidden}
+  body[data-bleed="1"] .print-card{width:91mm;height:61mm;background:var(--vdso-navy)}
+  body[data-bleed="0"] .cutmark{display:none}
+  body[data-bleed="1"] .cutmark{display:block}
+  .print-card .card-inner-slot{position:absolute;inset:0}
+  body[data-bleed="1"] .print-card .card-inner-slot{inset:3mm}
+  .cutmark{position:absolute;background:#000}
+  [contenteditable]:hover,[contenteditable]:focus{outline:none!important}
+}
+</style></head>
+<body style="margin:0;min-height:100vh;background:#DADFE6;display:flex;flex-direction:column;align-items:center;font-family:var(--font-body);padding-bottom:60px">
+<div style="width:100%;background:var(--vdso-navy);padding:16px 24px;display:flex;gap:12px;justify-content:center;position:sticky;top:0;z-index:10;box-shadow:var(--shadow-md)">
+<button onclick="printCard(false)" style="font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;background:var(--vdso-blue);color:#fff;border:none;padding:12px 22px;border-radius:var(--r-md);cursor:pointer">Download PDF zonder snijmarge</button>
+<button onclick="printCard(true)" style="font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;background:transparent;color:var(--vdso-platinum);border:1px solid var(--vdso-steel);padding:12px 22px;border-radius:var(--r-md);cursor:pointer">Download PDF met snijmarges (3mm)</button>
+</div>
+
+<div style="font-family:var(--font-display);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--vdso-iron);margin-top:40px">Voorkant</div>
+<div id="front-face" class="card-face" style="margin-top:14px;background:var(--vdso-navy);box-shadow:var(--shadow-lg)">
+<div style="position:absolute;width:50mm;height:50mm;border-radius:50%;top:18mm;left:52mm;background:var(--grad-blue-glow);opacity:0.7;filter:blur(6mm)"></div>
+<div style="position:absolute;inset:0;background:var(--grad-vignette)"></div>
+<img src="../../assets/logos/vdso-logo-primary.png" alt="" style="position:absolute;height:11mm;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.96">
+</div>
+
+<div style="font-family:var(--font-display);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--vdso-iron);margin-top:32px">Achterkant</div>
+<div id="back-face" class="card-face" style="margin-top:14px;background:var(--vdso-black);box-shadow:var(--shadow-lg)">
+<div style="position:absolute;inset:0;clip-path:polygon(0 0,42% 0,18% 100%,0% 100%);background:linear-gradient(160deg,var(--vdso-blue-bright),var(--vdso-blue) 55%,var(--vdso-blue-deep))"></div>
+<div style="position:absolute;left:0mm;top:50%;transform:translateY(-50%) rotate(-90deg);transform-origin:center center">
+<img src="../../assets/logos/vdso-logo-mark.svg" alt="VDSO" style="height:9mm;filter:invert(1)">
+</div>
+<div style="position:absolute;left:40mm;right:6mm;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center;gap:3.2mm">
+<div style="font-family:var(--font-display);font-size:7px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--vdso-chrome);margin-bottom:2mm" contenteditable="true">Premium Automotive</div>
+<div style="font-family:var(--font-display);font-weight:600;font-size:12px;letter-spacing:0.02em;text-transform:uppercase;color:var(--vdso-platinum);line-height:1.05;margin-bottom:2mm" contenteditable="true">Stijn van der Schoot</div>
+<div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:0.02em;color:var(--vdso-platinum)" contenteditable="true">vdso.nl</div>
+<div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:0.02em;color:var(--vdso-platinum)" contenteditable="true">info@vdso.nl</div>
+<div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:0.02em;color:var(--vdso-platinum)" contenteditable="true">+31 6 22580038</div>
+<div style="font-family:var(--font-mono);font-size:9.5px;letter-spacing:0.02em;color:var(--vdso-chrome)" contenteditable="true">Wiegershof 9, 5751 XJ</div>
+</div>
+</div>
+
+<div class="print-sheet" id="print-root"></div>
+<script>
+function printCard(bleed){
+var root=document.getElementById('print-root');
+root.innerHTML='';
+[document.getElementById('front-face'),document.getElementById('back-face')].forEach(function(face){
+var wrap=document.createElement('div');
+wrap.className='print-card';
+var slot=document.createElement('div');
+slot.className='card-inner-slot';
+slot.appendChild(face.cloneNode(true));
+wrap.appendChild(slot);
+if(bleed){
+var corners=[[0,3,2,0.3],[3,0,0.3,2],[89,3,2,0.3],[88,0,0.3,2],[0,58,2,0.3],[3,59,0.3,2],[89,58,2,0.3],[88,59,0.3,2]];
+corners.forEach(function(c){
+var m=document.createElement('div');
+m.className='cutmark';
+m.style.left=c[0]+'mm';m.style.top=c[1]+'mm';m.style.width=c[2]+'mm';m.style.height=c[3]+'mm';
+wrap.appendChild(m);
+});
+}
+root.appendChild(wrap);
+});
+document.body.setAttribute('data-bleed',bleed?'1':'0');
+var styleTag=document.getElementById('dynamic-page-size');
+if(!styleTag){styleTag=document.createElement('style');styleTag.id='dynamic-page-size';document.head.appendChild(styleTag);}
+styleTag.textContent='@page{size:'+(bleed?'91mm 61mm':'85mm 55mm')+';margin:0}';
+requestAnimationFrame(function(){window.print();});
+}
+</script>
+</body></html>

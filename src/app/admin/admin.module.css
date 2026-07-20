@@ -17,9 +17,11 @@
   display: block; padding: 8px 12px; border-radius: var(--r-md);
   font-family: var(--font-display); font-size: 11px; font-weight: 600;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-4);
+  text-decoration: none;
   cursor: pointer; transition: background 160ms, color 160ms;
 }
-.navActive { background: var(--stroke-1); color: var(--fg-1); }
+.navItem:hover { color: var(--fg-2); }
+.navActive, .navActive:hover { background: var(--stroke-1); color: var(--fg-1); }
 .sidebarFooter { display: flex; flex-direction: column; gap: 8px; }
 .previewToggle, .logoutBtn {
   display: flex; align-items: center; gap: 8px;
@@ -33,6 +35,12 @@
 
 /* Main */
 .main { flex: 1; padding: 40px; overflow-y: auto; }
+
+@media print {
+  .page { display: block !important; }
+  .sidebar { display: none !important; }
+  .main { padding: 0 !important; overflow: visible !important; }
+}
 .topBar {
   display: flex; justify-content: space-between; align-items: flex-start;
   margin-bottom: 32px;

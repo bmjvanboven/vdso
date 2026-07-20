@@ -54,7 +54,7 @@ Aantekeningen omgezet naar takenlijst. Ongesorteerd op prioriteit — nog te bep
 - [x] Leesbare URL's voor autopagina's (bijv. /aanbod/bmw-m5-2025-{id} i.p.v. kale UUID) — oude links redirecten automatisch mee
 
 ## Design (extern — Claude Design)
-- [ ] Briefpapier maken
-- [ ] Visitekaartje opzetten
-- [ ] Factuur sjabloon maken
+- [x] Briefpapier maken — sjabloon ingebouwd in admin (/admin/briefpapier), rechtstreeks bewerkbaar + PDF/Word export
+- [x] Visitekaartje opzetten — sjabloon ingebouwd in admin (/admin/visitekaartje), voor-/achterkant bewerkbaar + PDF-export (met/zonder snijmarges)
+- [x] Factuur sjabloon maken — sjabloon ingebouwd in admin (/admin/factuur), regels toevoegen/verwijderen + PDF/Word export
 - [x] Logo: de "O" in donkerblauw — asset staat klaar (los mapje)

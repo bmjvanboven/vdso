@@ -1,12 +1,12 @@
 'use client'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { Plus, LogOut, Eye, EyeOff, Pencil, Trash2, ToggleLeft, ToggleRight, GripVertical } from 'lucide-react'
+import { Plus, Eye, EyeOff, Pencil, Trash2, ToggleLeft, ToggleRight, GripVertical } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { Car, Settings, BadgeStatus } from '@/lib/supabase/types'
 import { BADGE_LABELS } from '@/lib/supabase/types'
 import CarFormModal from './CarFormModal'
+import AdminSidebar from './AdminSidebar'
 import styles from './admin.module.css'
 
 export default function AdminDashboard({ cars: initialCars, settings }: { cars: Car[]; settings: Settings | null }) {
@@ -15,13 +15,7 @@ export default function AdminDashboard({ cars: initialCars, settings }: { cars: 
   const [formOpen, setFormOpen] = useState(false)
   const [editCar, setEditCar] = useState<Car | null>(null)
   const [dragIndex, setDragIndex] = useState<number | null>(null)
-  const router = useRouter()
   const supabase = createClient()
-
-  async function logout() {
-    await supabase.auth.signOut()
-    router.push('/admin/login')
-  }
 
   async function togglePreview() {
     const next = !previewMode
@@ -71,23 +65,13 @@ export default function AdminDashboard({ cars: initialCars, settings }: { cars: 
 
   return (
     <div className={styles.page}>
-      {/* Sidebar */}
-      <aside className={styles.sidebar}>
-        <Image src="/uploads/logo-vdso-webversie-klein.png" alt="VDSO" width={80} height={15} className={styles.sidebarLogo} />
-        <nav className={styles.sidebarNav}>
-          <span className={styles.navItem + ' ' + styles.navActive}>Auto&apos;s</span>
-        </nav>
-        <div className={styles.sidebarFooter}>
-          <button className={styles.previewToggle} onClick={togglePreview}>
-            {previewMode ? <EyeOff size={14} /> : <Eye size={14} />}
-            Preview {previewMode ? 'aan' : 'uit'}
-            {previewMode ? <ToggleRight size={16} style={{ color: 'var(--vdso-blue)' }} /> : <ToggleLeft size={16} />}
-          </button>
-          <button className={styles.logoutBtn} onClick={logout}>
-            <LogOut size={14} /> Uitloggen
-          </button>
-        </div>
-      </aside>
+      <AdminSidebar>
+        <button className={styles.previewToggle} onClick={togglePreview}>
+          {previewMode ? <EyeOff size={14} /> : <Eye size={14} />}
+          Preview {previewMode ? 'aan' : 'uit'}
+          {previewMode ? <ToggleRight size={16} style={{ color: 'var(--vdso-blue)' }} /> : <ToggleLeft size={16} />}
+        </button>
+      </AdminSidebar>
 
       {/* Main */}
       <main className={styles.main}>

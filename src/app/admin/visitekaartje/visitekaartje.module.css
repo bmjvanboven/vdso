@@ -1,0 +1,30 @@
+.cardsWrap { width: 100%; }
+
+.cardLabel {
+  font-family: var(--font-display); font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--vdso-iron); margin-top: 40px;
+}
+.cardLabelBack { margin-top: 32px; }
+
+.cardFace {
+  width: 85mm; height: 55mm; position: relative; overflow: hidden;
+  box-sizing: border-box; border-radius: 1.4mm; margin-top: 14px; box-shadow: var(--shadow-lg);
+}
+.cardFront { background: var(--vdso-navy); }
+.cardBack { background: var(--vdso-black); }
+
+.printSheet { display: none; }
+
+@media print {
+  @page { margin: 0; }
+  .cardsWrap > *:not(.printSheet) { display: none !important; }
+  .printSheet { display: block !important; }
+  .printCard { position: relative; box-sizing: border-box; page-break-after: always; }
+  :global(body[data-bleed="0"]) .printCard { width: 85mm; height: 55mm; overflow: hidden; }
+  :global(body[data-bleed="1"]) .printCard { width: 91mm; height: 61mm; background: var(--vdso-navy); }
+  :global(body[data-bleed="0"]) .cutmark { display: none; }
+  :global(body[data-bleed="1"]) .cutmark { display: block; }
+  .printCard .cardSlot { position: absolute; inset: 0; }
+  :global(body[data-bleed="1"]) .printCard .cardSlot { inset: 3mm; }
+  .cutmark { position: absolute; background: #000; }
+}

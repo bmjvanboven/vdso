@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Briefpapier" description="A4 letterhead met logo, adresblok en huisstijl-footer" -->
+<helmet><style>
+@page{size:A4;margin:0}
+@media print{.vdso-lh-toolbar{display:none!important}html,body{background:#fff!important}.vdso-lh-wrap{padding:0!important}.vdso-lh-page{box-shadow:none!important;margin:0!important}}
+</style><script src="./ds-base.js"></script></helmet>
+<div style="min-height:100vh;background:#DADFE6;display:flex;flex-direction:column;align-items:center;font-family:var(--font-body)" class="vdso-lh-wrap">
+<div class="vdso-lh-toolbar" style="width:100%;background:var(--vdso-navy);padding:16px 24px;display:flex;gap:12px;justify-content:center;position:sticky;top:0;z-index:10;box-shadow:var(--shadow-md)">
+<button onclick="{{ onPrint }}" style="font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;background:var(--vdso-blue);color:#fff;border:none;padding:12px 22px;border-radius:var(--r-md);cursor:pointer">Opslaan als PDF</button>
+<button onclick="{{ onWord }}" style="font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;background:transparent;color:var(--vdso-platinum);border:1px solid var(--vdso-steel);padding:12px 22px;border-radius:var(--r-md);cursor:pointer">Opslaan als Word</button>
+</div>
+<div class="vdso-lh-page" style="width:794px;min-height:1123px;background:var(--vdso-paper);box-shadow:var(--shadow-lg);margin:40px 0 60px;padding:64px 64px 0;position:relative;box-sizing:border-box;display:flex;flex-direction:column">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid rgba(10,22,40,0.12);padding-bottom:28px">
+<img src="../../assets/logos/vdso-logo-primary.png" alt="VDSO" style="height:40px;width:auto;display:block">
+<div style="text-align:right;font-family:var(--font-mono);font-size:11px;line-height:1.6;color:var(--vdso-iron);letter-spacing:0.02em">
+<div>Wiegershof 9, 5751 XJ</div>
+<div>info@vdso.nl</div>
+<div>+31 6 22580038</div>
+</div>
+</div>
+<div style="display:flex;justify-content:space-between;margin-top:44px">
+<div style="font-size:14px;line-height:1.6;color:var(--vdso-navy)">
+<div>T.a.v. de heer/mevrouw</div>
+<div>Straatnaam 123</div>
+<div>1234 AB Plaatsnaam</div>
+</div>
+<div style="text-align:right;font-size:14px;line-height:1.9;color:var(--vdso-navy)">
+<div><span style="font-family:var(--font-display);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--vdso-chrome)">Datum</span>&nbsp;&nbsp;20 juli 2026</div>
+<div><span style="font-family:var(--font-display);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--vdso-chrome)">Referentie</span>&nbsp;&nbsp;VDSO-2026-001</div>
+</div>
+</div>
+<div style="margin-top:48px;font-family:var(--font-display);font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--vdso-chrome)">Betreft</div>
+<div style="font-size:20px;font-weight:500;color:var(--vdso-navy);margin-top:6px;letter-spacing:-0.01em">Onderwerp van deze brief</div>
+<div style="margin-top:32px;font-size:15px;line-height:1.7;color:var(--vdso-navy);flex:1">
+<p style="margin:0 0 18px">Geachte heer/mevrouw,</p>
+<p style="margin:0 0 18px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<p style="margin:0 0 18px">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p style="margin:0 0 18px">Voor vragen staan wij u graag persoonlijk te woord.</p>
+<p style="margin:40px 0 0">Met vriendelijke groet,</p>
+<p style="margin:32px 0 0;font-weight:500">Team VDSO</p>
+</div>
+<div style="border-top:1px solid rgba(10,22,40,0.12);padding:18px 0 22px;display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.02em;color:var(--vdso-chrome)">
+<span>KVK 42015299</span><span>·</span><span>BTW NL869302140B0</span><span>·</span><span>NL36 RABO 0173 3874 89</span>
+</div>
+</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      onPrint: () => window.print(),
+      onWord: () => this.downloadWord()
+    };
+  }
+  downloadWord() {
+    const today = new Date().toLocaleDateString('nl-NL', { day: '2-digit', month: 'long', year: 'numeric' });
+    const html = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">'
+      + '<head><meta charset="utf-8"><style>'
+      + 'body{font-family:Calibri,Arial,sans-serif;color:#0A1628;font-size:11pt;margin:2.5cm}'
+      + '.hdr{display:table;width:100%;border-bottom:1px solid #ccc;padding-bottom:14pt;margin-bottom:20pt}'
+      + '.hdr td{vertical-align:top}'
+      + '.addr{text-align:right;font-size:9pt;color:#666;line-height:1.6}'
+      + '.lbl{font-size:8pt;letter-spacing:1px;text-transform:uppercase;color:#888}'
+      + '.ftr{border-top:1px solid #ccc;margin-top:40pt;padding-top:10pt;text-align:center;font-size:8pt;color:#888}'
+      + '</style></head><body>'
+      + '<table class="hdr"><tr><td><b style="font-size:16pt;letter-spacing:2px">VDSO</b></td>'
+      + '<td class="addr">Wiegershof 9, 5751 XJ<br>info@vdso.nl<br>+31 6 22580038</td></tr></table>'
+      + '<table style="width:100%;margin-bottom:24pt"><tr>'
+      + '<td>T.a.v. de heer/mevrouw<br>Straatnaam 123<br>1234 AB Plaatsnaam</td>'
+      + '<td style="text-align:right"><span class="lbl">Datum</span> ' + today + '<br><span class="lbl">Referentie</span> VDSO-' + new Date().getFullYear() + '-001</td>'
+      + '</tr></table>'
+      + '<p class="lbl">Betreft</p><p style="font-size:13pt;font-weight:bold">Onderwerp van deze brief</p>'
+      + '<p>Geachte heer/mevrouw,</p>'
+      + '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>'
+      + '<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>'
+      + '<p>Voor vragen staan wij u graag persoonlijk te woord.</p>'
+      + '<p>Met vriendelijke groet,</p><p><b>Team VDSO</b></p>'
+      + '<div class="ftr">KVK 42015299 &middot; BTW NL869302140B0 &middot; NL36 RABO 0173 3874 89</div>'
+      + '</body></html>';
+    const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'VDSO-briefpapier.doc';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+}
+</script>
+</body>
+</html>

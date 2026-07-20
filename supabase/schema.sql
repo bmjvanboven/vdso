@@ -17,8 +17,12 @@ create table if not exists public.cars (
                   check (badge_status in ('wordt_verwacht','net_binnen','beschikbaar','bijna_weg','gereserveerd','verkocht')),
   fotos         text[] not null default '{}',
   omschrijving  text,
-  is_visible    boolean not null default true
+  is_visible    boolean not null default true,
+  sort_order    int not null default 0
 );
+
+-- Bestaande database? Voer deze regel los uit als de kolom nog niet bestaat:
+alter table public.cars add column if not exists sort_order int not null default 0;
 
 -- Settings tabel (1 rij)
 create table if not exists public.settings (

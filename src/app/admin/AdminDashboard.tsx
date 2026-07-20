@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { Plus, LogOut, Eye, EyeOff, Pencil, Trash2, ToggleLeft, ToggleRight } from 'lucide-react'
+import { Plus, LogOut, Eye, EyeOff, Pencil, Trash2, ToggleLeft, ToggleRight, GripVertical } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { Car, Settings, BadgeStatus } from '@/lib/supabase/types'
 import { BADGE_LABELS } from '@/lib/supabase/types'
@@ -14,6 +14,7 @@ export default function AdminDashboard({ cars: initialCars, settings }: { cars: 
   const [previewMode, setPreviewMode] = useState(settings?.preview_mode ?? false)
   const [formOpen, setFormOpen] = useState(false)
   const [editCar, setEditCar] = useState<Car | null>(null)
+  const [dragIndex, setDragIndex] = useState<number | null>(null)
   const router = useRouter()
   const supabase = createClient()
 
@@ -53,11 +54,26 @@ export default function AdminDashboard({ cars: initialCars, settings }: { cars: 
     setFormOpen(false)
   }
 
+  function handleDragOver(e: React.DragEvent, i: number) {
+    e.preventDefault()
+    if (dragIndex === null || dragIndex === i) return
+    const next = [...cars]
+    const [moved] = next.splice(dragIndex, 1)
+    next.splice(i, 0, moved)
+    setDragIndex(i)
+    setCars(next)
+  }
+
+  async function persistOrder() {
+    setDragIndex(null)
+    await Promise.all(cars.map((c, i) => supabase.from('cars').update({ sort_order: i }).eq('id', c.id)))
+  }
+
   return (
     <div className={styles.page}>
       {/* Sidebar */}
       <aside className={styles.sidebar}>
-        <Image src="/uploads/logo-concept-navigatie.png" alt="VDSO" width={80} height={24} className={styles.sidebarLogo} />
+        <Image src="/uploads/logo-vdso-webversie-klein.png" alt="VDSO" width={80} height={15} className={styles.sidebarLogo} />
         <nav className={styles.sidebarNav}>
           <span className={styles.navItem + ' ' + styles.navActive}>Auto&apos;s</span>
         </nav>
@@ -87,14 +103,30 @@ export default function AdminDashboard({ cars: initialCars, settings }: { cars: 
 
         <div className={styles.table}>
           <div className={styles.tableHead}>
+            <span></span>
             <span>Voertuig</span>
             <span>Status</span>
             <span>Prijs</span>
             <span>Zichtbaar</span>
             <span></span>
           </div>
-          {cars.map(car => (
-            <div key={car.id} className={`${styles.tableRow} ${!car.is_visible ? styles.rowHidden : ''}`}>
+          {cars.map((car, i) => (
+            <div
+              key={car.id}
+              className={`${styles.tableRow} ${!car.is_visible ? styles.rowHidden : ''} ${dragIndex === i ? styles.rowDragging : ''}`}
+              onDragOver={e => handleDragOver(e, i)}
+              onDrop={e => e.preventDefault()}
+            >
+              <button
+                type="button"
+                className={styles.dragHandle}
+                draggable
+                onDragStart={() => setDragIndex(i)}
+                onDragEnd={persistOrder}
+                title="Sleep om volgorde te wijzigen"
+              >
+                <GripVertical size={14} />
+              </button>
               <div className={styles.carInfo}>
                 {car.fotos?.[0] ? (
                   <Image src={car.fotos[0]} alt="" width={56} height={42} className={styles.thumb} />
@@ -131,6 +163,7 @@ export default function AdminDashboard({ cars: initialCars, settings }: { cars: 
       {formOpen && (
         <CarFormModal
           car={editCar}
+          newSortOrder={cars.length ? Math.min(...cars.map(c => c.sort_order)) - 1 : 0}
           onClose={() => setFormOpen(false)}
           onSaved={onSaved}
         />

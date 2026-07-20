@@ -24,6 +24,7 @@ export interface Car {
   omschrijving: string | null
   specs: CarSpecs | null
   is_visible: boolean
+  sort_order: number
   created_at: string
 }
 

@@ -52,7 +52,11 @@
   position: relative; width: 80px; height: 60px;
   border-radius: var(--r-sm); overflow: hidden;
   border: 1px solid var(--stroke-1);
+  cursor: grab;
+  transition: opacity 120ms, transform 120ms;
 }
+.photoThumb:active { cursor: grabbing; }
+.photoThumbDragging { opacity: 0.35; transform: scale(0.95); }
 .photoRemove {
   position: absolute; top: 4px; right: 4px;
   width: 20px; height: 20px; border-radius: 4px;

@@ -1,9 +1,9 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import {
-  ArrowLeft, ArrowRight, ChevronLeft, ChevronRight,
+  ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, X, Images,
   Zap, Navigation, Calendar, ShieldCheck, Phone, CheckCircle,
   Palette, Armchair, Fuel, Settings2, Car as CarIcon, Receipt
 } from 'lucide-react'
@@ -32,11 +32,27 @@ export default function CarDetailClient({
 }) {
   const [activePhoto, setActivePhoto] = useState(0)
   const [modalOpen, setModalOpen] = useState(false)
+  const [lightboxOpen, setLightboxOpen] = useState(false)
   const photos = car.fotos?.length ? car.fotos : []
   const isSold = car.badge_status === 'verkocht'
+  const isMosaic = photos.length >= 6
 
   function prev() { setActivePhoto(i => (i - 1 + photos.length) % photos.length) }
   function next() { setActivePhoto(i => (i + 1) % photos.length) }
+  function openLightbox(i: number) { setActivePhoto(i); setLightboxOpen(true) }
+
+  useEffect(() => {
+    if (!lightboxOpen) return
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') setLightboxOpen(false)
+      if (e.key === 'ArrowLeft') prev()
+      if (e.key === 'ArrowRight') next()
+    }
+    window.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lightboxOpen, photos.length])
 
   return (
     <>
@@ -48,82 +64,187 @@ export default function CarDetailClient({
         preselect={car.id}
       />
 
+      {/* ── HEADER: breadcrumb + titel + prijs ────────── */}
+      <section className={styles.detailHeader}>
+        <div className={styles.detailHeaderInner}>
+          <nav className={styles.breadcrumb}>
+            <Link href="/aanbod" className={styles.breadcrumbBack}>
+              <ArrowLeft size={14} /> Terug naar aanbod
+            </Link>
+          </nav>
+          <div className={styles.detailHeaderRow}>
+            <div>
+              <p className={styles.headerEyebrow}>{car.merk} · {car.jaar}</p>
+              <h1 className={styles.headerTitle}>{car.model}</h1>
+            </div>
+            <div className={styles.detailHeaderPrice}>
+              <p className={styles.priceLabel}>Vraagprijs</p>
+              <p className={styles.priceCompact}>
+                <span className={styles.priceCurrency}>€</span>{car.prijs.toLocaleString('nl')}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── GALLERY ──────────────────────────────────── */}
       <section className={styles.gallery}>
-        <div className={styles.galleryInner}>
-        <div className={styles.galleryMain}>
-          {photos.length > 0 ? (
-            <Image
-              key={activePhoto}
-              src={photos[activePhoto]}
-              alt={`${car.merk} ${car.model}`}
-              fill
-              sizes="100vw"
-              className={styles.galleryImg}
-              priority
-            />
-          ) : (
-            <div className={styles.galleryPlaceholder} />
-          )}
-          <div className={styles.galleryOverlay} />
+        {isMosaic ? (
+          <div className={styles.mosaic}>
+            <button className={`${styles.mosaicTile} ${styles.mosaicLeft1}`} onClick={() => openLightbox(0)}>
+              <Image src={photos[0]} alt="" fill sizes="18vw" className={styles.mosaicImg} />
+            </button>
+            <button className={`${styles.mosaicTile} ${styles.mosaicLeft2}`} onClick={() => openLightbox(1)}>
+              <Image src={photos[1]} alt="" fill sizes="18vw" className={styles.mosaicImg} />
+            </button>
+            <button className={`${styles.mosaicTile} ${styles.mosaicLeft3}`} onClick={() => openLightbox(2)}>
+              <Image src={photos[2]} alt="" fill sizes="18vw" className={styles.mosaicImg} />
+            </button>
 
-          {/* Badge */}
-          <span className={styles.galleryBadge} style={{ color: BADGE_COLOR[car.badge_status] }}>
-            <span className={styles.galleryBadgeDot} />
-            {BADGE_LABELS[car.badge_status]}
-          </span>
-
-          {/* Arrows */}
-          {photos.length > 1 && (
-            <>
+            <div className={styles.mosaicMain}>
+              <Image
+                key={activePhoto}
+                src={photos[activePhoto]}
+                alt={`${car.merk} ${car.model}`}
+                fill
+                sizes="45vw"
+                className={styles.galleryImg}
+                priority
+                onClick={() => openLightbox(activePhoto)}
+              />
+              <div className={styles.galleryOverlay} />
+              <span className={styles.galleryBadge} style={{ color: BADGE_COLOR[car.badge_status] }}>
+                <span className={styles.galleryBadgeDot} />
+                {BADGE_LABELS[car.badge_status]}
+              </span>
               <button className={`${styles.galleryArrow} ${styles.galleryArrowPrev}`} onClick={prev}>
                 <ChevronLeft size={20} />
               </button>
               <button className={`${styles.galleryArrow} ${styles.galleryArrowNext}`} onClick={next}>
                 <ChevronRight size={20} />
               </button>
-              <div className={styles.galleryCounter}>
-                {activePhoto + 1} / {photos.length}
-              </div>
-            </>
-          )}
-        </div>
+              <div className={styles.galleryCounter}>{activePhoto + 1} / {photos.length}</div>
+            </div>
 
-        </div>{/* /galleryInner */}
-
-        {/* Thumbnails */}
-        {photos.length > 1 && (
-          <div className={styles.thumbStrip}>
-            {photos.map((url, i) => (
-              <button
-                key={i}
-                className={`${styles.thumb} ${i === activePhoto ? styles.thumbActive : ''}`}
-                onClick={() => setActivePhoto(i)}
-              >
-                <Image src={url} alt="" fill sizes="120px" className={styles.thumbImg} />
-              </button>
-            ))}
+            <button className={`${styles.mosaicTile} ${styles.mosaicRight1}`} onClick={() => openLightbox(3)}>
+              <Image src={photos[3]} alt="" fill sizes="18vw" className={styles.mosaicImg} />
+            </button>
+            <button className={`${styles.mosaicTile} ${styles.mosaicRight2}`} onClick={() => openLightbox(4)}>
+              <Image src={photos[4]} alt="" fill sizes="18vw" className={styles.mosaicImg} />
+            </button>
+            <button className={`${styles.mosaicTile} ${styles.mosaicOverflow}`} onClick={() => openLightbox(5)}>
+              <Image src={photos[5]} alt="" fill sizes="18vw" className={styles.mosaicImg} style={{ filter: 'blur(2px) brightness(0.5)' }} />
+              <span className={styles.mosaicOverflowLabel}><Images size={16} /> Alle foto&apos;s ({photos.length})</span>
+            </button>
           </div>
+        ) : (
+          <>
+            <div className={styles.galleryInner}>
+              <div className={styles.galleryMain}>
+                {photos.length > 0 ? (
+                  <Image
+                    key={activePhoto}
+                    src={photos[activePhoto]}
+                    alt={`${car.merk} ${car.model}`}
+                    fill
+                    sizes="100vw"
+                    className={styles.galleryImg}
+                    priority
+                    onClick={() => openLightbox(activePhoto)}
+                  />
+                ) : (
+                  <div className={styles.galleryPlaceholder} />
+                )}
+                <div className={styles.galleryOverlay} />
+
+                <span className={styles.galleryBadge} style={{ color: BADGE_COLOR[car.badge_status] }}>
+                  <span className={styles.galleryBadgeDot} />
+                  {BADGE_LABELS[car.badge_status]}
+                </span>
+
+                {photos.length > 1 && (
+                  <>
+                    <button className={`${styles.galleryArrow} ${styles.galleryArrowPrev}`} onClick={prev}>
+                      <ChevronLeft size={20} />
+                    </button>
+                    <button className={`${styles.galleryArrow} ${styles.galleryArrowNext}`} onClick={next}>
+                      <ChevronRight size={20} />
+                    </button>
+                    <div className={styles.galleryCounter}>
+                      {activePhoto + 1} / {photos.length}
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {photos.length > 1 && (
+              <div className={styles.thumbStrip}>
+                {photos.map((url, i) => (
+                  <button
+                    key={i}
+                    className={`${styles.thumb} ${i === activePhoto ? styles.thumbActive : ''}`}
+                    onClick={() => setActivePhoto(i)}
+                  >
+                    <Image src={url} alt="" fill sizes="120px" className={styles.thumbImg} />
+                  </button>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </section>
 
+      {/* ── LIGHTBOX ─────────────────────────────────── */}
+      {lightboxOpen && photos.length > 0 && (
+        <div className={styles.lightbox} onClick={e => e.target === e.currentTarget && setLightboxOpen(false)}>
+          <button className={styles.lightboxClose} onClick={() => setLightboxOpen(false)}>
+            <X size={22} />
+          </button>
+          <div className={styles.lightboxMain}>
+            <Image
+              key={activePhoto}
+              src={photos[activePhoto]}
+              alt={`${car.merk} ${car.model}`}
+              fill
+              sizes="100vw"
+              className={styles.lightboxImg}
+            />
+            {photos.length > 1 && (
+              <>
+                <button className={`${styles.galleryArrow} ${styles.galleryArrowPrev}`} onClick={prev}>
+                  <ChevronLeft size={20} />
+                </button>
+                <button className={`${styles.galleryArrow} ${styles.galleryArrowNext}`} onClick={next}>
+                  <ChevronRight size={20} />
+                </button>
+              </>
+            )}
+          </div>
+          <div className={styles.lightboxCounter}>{activePhoto + 1} / {photos.length}</div>
+          {photos.length > 1 && (
+            <div className={styles.thumbStrip}>
+              {photos.map((url, i) => (
+                <button
+                  key={i}
+                  className={`${styles.thumb} ${i === activePhoto ? styles.thumbActive : ''}`}
+                  onClick={() => setActivePhoto(i)}
+                >
+                  <Image src={url} alt="" fill sizes="120px" className={styles.thumbImg} />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       {/* ── CONTENT ──────────────────────────────────── */}
       <div className={styles.content}>
-
-        {/* Breadcrumb */}
-        <nav className={styles.breadcrumb}>
-          <Link href="/aanbod" className={styles.breadcrumbBack}>
-            <ArrowLeft size={14} /> Terug naar aanbod
-          </Link>
-        </nav>
 
         <div className={styles.contentLayout}>
 
           {/* ── LEFT: main info ────────────────────── */}
           <div className={styles.mainCol}>
-            <p className={styles.eyebrow}>{car.merk} · {car.jaar}</p>
-            <h1 className={styles.title}>{car.model}</h1>
-
             {/* Specs grid */}
             <div className={styles.specsGrid}>
               <SpecBlock icon={<Zap size={16} />} label="Vermogen" value={`${car.pk} pk`} />
@@ -239,7 +360,7 @@ export default function CarDetailClient({
       {/* Footer */}
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
-          <p className={styles.footerLegal}>© 2026 VDSO B.V. · RDW erkend · KvK 00000000</p>
+          <p className={styles.footerLegal}>© 2026 VDSO B.V. · RDW erkend · KvK 42015299</p>
         </div>
       </footer>
     </>

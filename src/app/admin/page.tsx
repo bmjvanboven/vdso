@@ -9,7 +9,7 @@ export default async function AdminPage() {
   if (!user) redirect('/admin/login')
 
   const { data: carsRaw } = await supabase
-    .from('cars').select('*').order('created_at', { ascending: false })
+    .from('cars').select('*').order('sort_order', { ascending: true }).order('created_at', { ascending: false })
   const cars = (carsRaw ?? []) as Car[]
 
   const { data: settingsRaw } = await supabase

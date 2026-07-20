@@ -10,7 +10,7 @@
 }
 
 .logo { flex-shrink: 0; }
-.logo img { height: 28px; width: auto; display: block; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.55)); }
+.logo img { height: 22px; width: auto; display: block; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.55)); }
 
 /* Desktop nav links */
 .links {
@@ -38,9 +38,19 @@
 .phone:hover { color: var(--fg-1); background: rgba(255,255,255,0.04); }
 .phone svg { color: var(--vdso-blue); }
 
-/* Hamburger — alleen mobiel */
+/* Mobiel: bel-icoon + hamburger */
+.mobileTopActions { display: none; align-items: center; gap: 8px; flex-shrink: 0; }
+.mobileTopPhone {
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px;
+  background: transparent; border: 1px solid var(--stroke-2);
+  border-radius: var(--r-md); color: var(--vdso-blue); text-decoration: none;
+  transition: border-color 160ms;
+  flex-shrink: 0;
+}
+.mobileTopPhone:hover { border-color: var(--stroke-3); }
 .hamburger {
-  display: none;
+  display: flex;
   align-items: center; justify-content: center;
   width: 40px; height: 40px;
   background: transparent; border: 1px solid var(--stroke-2);
@@ -96,11 +106,10 @@
 @media (max-width: 900px) {
   .links { display: none; }
   .phone { display: none; }
-  .actions .hamburger { display: flex; } /* fallback */
 }
 
 @media (max-width: 768px) {
   .links  { display: none; }
   .actions { display: none; }
-  .hamburger { display: flex; }
+  .mobileTopActions { display: flex; }
 }

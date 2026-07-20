@@ -15,6 +15,7 @@ export default async function HomePage() {
     .from('cars')
     .select('*')
     .eq('is_visible', true)
+    .order('sort_order', { ascending: true })
     .order('created_at', { ascending: false })
     .limit(3)
   const cars = (carsRaw ?? []) as Car[]

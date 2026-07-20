@@ -69,7 +69,7 @@ export default function AanbodClient({ cars, showGate }: { cars: Car[]; showGate
 
       <footer className={styles.footer}>
         <Link href="/" className={styles.back}><ArrowLeft size={12} /> Terug naar home</Link>
-        <Image src="/uploads/logo-concept-navigatie.png" alt="VDSO" width={80} height={24} style={{ opacity: 0.5 }} />
+        <Image src="/uploads/logo-vdso-webversie-klein.png" alt="VDSO" width={80} height={15} style={{ opacity: 0.5 }} />
         <p className={styles.legal}>© 2026 VDSO B.V. · RDW erkend</p>
       </footer>
     </>

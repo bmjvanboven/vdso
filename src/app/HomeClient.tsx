@@ -6,12 +6,10 @@ import {
   ShieldCheck, MapPin, ArrowRight,
   ClipboardCheck, History, Award,
   RefreshCw, TrendingUp, FileText,
-  Car, Briefcase, Percent, Calculator,
   Camera, Users, Hand,
-  Phone, Clock,
+  Phone, Clock, Building2,
 } from 'lucide-react'
 import Nav from '@/components/Nav'
-import CarCard from '@/components/CarCard'
 import ProefritModal from '@/components/ProefritModal'
 import PreviewGate from '@/components/PreviewGate'
 import type { Car as CarType } from '@/lib/supabase/types'
@@ -63,14 +61,14 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
       <div className={styles.specsStrip}>
         <div className={styles.specsInner}>
           <div className={styles.specItem}>
-            <p className={styles.specLabel}>Ervaring</p>
-            <p className={styles.specValue}>10<span className={styles.specUnit}>+</span></p>
-            <p className={styles.specSub}>Jaar in de branche</p>
+            <p className={styles.specLabel}>Vermogen</p>
+            <p className={styles.specValue}>500<span className={styles.specUnit}>+</span></p>
+            <p className={styles.specSub}>Pk om van te dromen</p>
           </div>
           <div className={styles.specItem}>
-            <p className={styles.specLabel}>Merken</p>
-            <p className={styles.specValue}>12<span className={styles.specUnit}>+</span></p>
-            <p className={styles.specSub}>Premium selectie</p>
+            <p className={styles.specLabel}>Passie</p>
+            <p className={styles.specValue}>100<span className={styles.specUnit}>%</span></p>
+            <p className={styles.specSub}>Voor performance auto&apos;s</p>
           </div>
           <div className={styles.specItem}>
             <p className={styles.specLabel}>Gecertificeerd</p>
@@ -80,26 +78,7 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
         </div>
       </div>
 
-      {/* ── AANBOD ────────────────────────────────────── */}
-      <section id="aanbod" className={styles.aanbodSection}>
-        <div className="section-wrap">
-          <p className="section-label">Uitgelicht aanbod</p>
-          <h2 className="section-title">Handpicked.<br />Direct leverbaar.</h2>
-          <p className="section-body">Elke auto in ons aanbod is persoonlijk beoordeeld op rijhistorie, conditie en afkomst. Geen compromis.</p>
-          <div className={styles.grid}>
-            {cars.map(car => (
-              <CarCard key={car.id} car={car} onProefrit={() => setModalOpen(true)} />
-            ))}
-          </div>
-          <div className={styles.gridCta}>
-            <Link href="/aanbod" className="btn-secondary btn-secondary--lg">
-              Bekijk alle occasions <ArrowRight size={14} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── OCCASIONS ─────────────────────────────────── */}
+      {/* ── OCCASIONS (samengevoegd met voormalig "Aanbod"-blok) ──── */}
       <section id="occasions" className={`${styles.feature}`}>
         <div className={styles.featureLayout}>
           <div className={styles.featureVisual} style={{ backgroundImage: `linear-gradient(to bottom, rgba(5,6,8,0.25) 0%, rgba(5,6,8,0.65) 100%), url('/uploads/sectie-occassions.jpg')` }}>
@@ -112,6 +91,11 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
               <Pillar icon={<ClipboardCheck size={17} />} label="Inspectie" value="Grondig gecontroleerd" />
               <Pillar icon={<History size={17} />} label="Rijhistorie" value="Geverifieerd" />
               <Pillar icon={<Award size={17} />} label="Certificering" value="RDW erkend" />
+            </div>
+            <div className={styles.showroomCtas} style={{ marginTop: 28 }}>
+              <Link href="/aanbod" className="btn-primary">
+                Bekijk aanbod <ArrowRight size={13} />
+              </Link>
             </div>
           </div>
         </div>
@@ -146,43 +130,49 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
         </div>
       </section>
 
-      {/* ── FINANCIERING ──────────────────────────────── */}
-      <section id="financiering" className={styles.feature}>
+      {/* ── AUTO VERKOPEN ─────────────────────────────── */}
+      <section id="verkoop-auto" className={styles.feature}>
         <div className={styles.featureLayout}>
           <div className={`${styles.featureVisual} ${styles.featureVisualFinance}`}>
             <div className={styles.financeWidget}>
-              <p className={styles.financeLabel}>Maandbedrag vanaf</p>
-              <p className={styles.financeAmount}>€ 489<span className={styles.financeUnit}>/mnd</span></p>
+              <p className={styles.financeLabel}>Reactie op uw aanbod</p>
+              <p className={styles.financeAmount}>24<span className={styles.financeUnit}> uur</span></p>
               <div className={styles.financeRows}>
                 <div className={styles.financeRow}>
-                  <span className={styles.financeKey}>Looptijd</span>
-                  <span className={styles.financeVal}>60 mnd</span>
-                </div>
-                <div className={styles.financeRow}>
-                  <span className={styles.financeKey}>Rente</span>
-                  <span className={styles.financeVal}>4,9%</span>
-                </div>
-                <div className={styles.financeRow}>
-                  <span className={styles.financeKey}>Aanbetaling</span>
+                  <span className={styles.financeKey}>Advertentiekosten</span>
                   <span className={styles.financeVal}>€ 0</span>
                 </div>
                 <div className={styles.financeRow}>
-                  <span className={styles.financeKey}>Offerte</span>
-                  <span className={styles.financeValBlue}>Binnen 24 uur</span>
+                  <span className={styles.financeKey}>Onderhandelen</span>
+                  <span className={styles.financeVal}>Niet nodig</span>
+                </div>
+                <div className={styles.financeRow}>
+                  <span className={styles.financeKey}>Overname</span>
+                  <span className={styles.financeVal}>Bij u thuis mogelijk</span>
+                </div>
+                <div className={styles.financeRow}>
+                  <span className={styles.financeKey}>Betaling</span>
+                  <span className={styles.financeValBlue}>Direct</span>
                 </div>
               </div>
-              <p className={styles.financeDisclaimer}>Indicatief · Op basis van Mercedes GLE 580 · €94.500</p>
+              <p className={styles.financeDisclaimer}>Vrijblijvend · Geen verplichtingen</p>
             </div>
           </div>
           <div>
-            <p className="section-label">Financiering</p>
-            <h2 className="section-title">Flexibel rijden.<br />Uw keuze.</h2>
-            <p className="section-body">Private lease, financial lease of directe aankoop: wij bieden alle opties. Samen met onze financieringspartners vinden wij de constructie die past bij uw situatie.</p>
+            <p className="section-label">Auto verkopen</p>
+            <h2 className="section-title">Geen advertentie.<br />Geen gedoe.</h2>
+            <p className="section-body">Geen foto&apos;s maken, geen kijkdagen plannen, geen onderhandelen met vreemden. Bied uw auto rechtstreeks aan bij VDSO en ontvang snel een eerlijk, vrijblijvend bod.</p>
             <div className={styles.pillars}>
-              <Pillar icon={<Car size={17} />} label="Private Lease" value="Alles inbegrepen" />
-              <Pillar icon={<Briefcase size={17} />} label="Financial Lease" value="Fiscaal voordelig" />
-              <Pillar icon={<Percent size={17} />} label="Rente" value="Scherp tarief" />
-              <Pillar icon={<Calculator size={17} />} label="Offerte" value="Binnen 24 uur" />
+              <Pillar icon={<Clock size={17} />} label="Reactietijd" value="Binnen 24 uur" />
+              <Pillar icon={<ShieldCheck size={17} />} label="Zekerheid" value="Vaste prijs" />
+              <Pillar icon={<Hand size={17} />} label="Betaling" value="Direct" />
+              <Pillar icon={<FileText size={17} />} label="Administratie" value="Wij regelen het" />
+            </div>
+            <div className={styles.showroomCtas} style={{ marginTop: 28 }}>
+              <a href="mailto:inkoop@vdso.nl" className="btn-primary">
+                Bied uw auto aan <ArrowRight size={13} />
+              </a>
+              <a href="mailto:inkoop@vdso.nl" className="btn-secondary">inkoop@vdso.nl</a>
             </div>
           </div>
         </div>
@@ -222,16 +212,19 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
             <p className="section-label">Op afspraak</p>
             <h2 className="section-title">Maak kennis<br />in persoon.</h2>
             <p className="section-body">Wij ontvangen u uitsluitend op afspraak. Plan een proefrit, bespreek uw configuratie of maak kennis met het VDSO-team.</p>
-            <div className={styles.showroomDetails}>
-              <ShowroomDetail icon={<MapPin size={15} />} label="Adres" value="VDSO — Deurne" />
-              <ShowroomDetail icon={<Clock size={15} />} label="Openingstijden" value="Uitsluitend op afspraak" />
-              <ShowroomDetail icon={<Phone size={15} />} label="Contact" value="+31 6 22580038 · info@vdso.nl" />
-            </div>
+            <p className="section-body">Mijn naam is Stijnn, 32 jaar, en auto&apos;s vormen al mijn hele leven een passie. Opgegroeid in een automotivegezin, opgeleid aan de IVA en afgestudeerd met een International Sales Bachelor in de Verenigde Staten, heb ik een sterke combinatie van vakkennis en commerciële ervaring opgebouwd.</p>
+            <p className="section-body">Na jarenlang werkzaam te zijn geweest in diverse sales- en accountmanagementfuncties, heb ik besloten mijn passie te volgen. Vandaag de dag richt ik mij volledig op het aanbieden van zorgvuldig geselecteerde, luxe occasions. Betrouwbaarheid, kwaliteit en persoonlijk contact staan daarbij altijd centraal.</p>
             <div className={styles.showroomCtas}>
               <button className="btn-primary" onClick={() => setModalOpen(true)}>
                 Plan een proefrit <ArrowRight size={13} />
               </button>
               <a href="mailto:info@vdso.nl" className="btn-secondary">Contact</a>
+            </div>
+            <div className={styles.showroomDetails}>
+              <ShowroomDetail icon={<MapPin size={14} />} label="Adres" value="Wiegershof 9, 5751 XJ Deurne" />
+              <ShowroomDetail icon={<Clock size={14} />} label="Openingstijden" value="Uitsluitend op afspraak" />
+              <ShowroomDetail icon={<Phone size={14} />} label="Contact" value="+31 6 22580038 · info@vdso.nl" />
+              <ShowroomDetail icon={<Building2 size={14} />} label="KvK" value="42015299" />
             </div>
           </div>
         </div>
@@ -243,7 +236,7 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
           <div className={styles.footerTop}>
             <div className={styles.footerBrand}>
               <Link href="/">
-                <Image src="/uploads/logo-concept-navigatie.png" alt="VDSO" width={80} height={24} />
+                <Image src="/uploads/logo-vdso-webversie-klein.png" alt="VDSO" width={80} height={15} />
               </Link>
               <p className={styles.footerTagline}>Precision. Performance. Minimalist Luxury.</p>
             </div>
@@ -261,7 +254,7 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
                 <p className={styles.footerColTitle}>Services</p>
                 <ul className={styles.footerLinks}>
                   <li><a href="#inkoop">Inkoop &amp; taxatie</a></li>
-                  <li><a href="#financiering">Financiering</a></li>
+                  <li><a href="#verkoop-auto">Auto verkopen</a></li>
                   <li><a href="#consignatie">Consignatie</a></li>
                   <li><a href="#op-afspraak">Proefrit plannen</a></li>
                 </ul>

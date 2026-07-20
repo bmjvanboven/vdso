@@ -1,0 +1,117 @@
+/* ── HEADER ──────────────────────────────────────────── */
+.header {
+  padding: 120px var(--gutter) 56px;
+  max-width: var(--container-max); margin: 0 auto;
+  border-bottom: 1px solid var(--stroke-hairline);
+}
+.eyebrow {
+  font-family: var(--font-display); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.28em; text-transform: uppercase; color: var(--vdso-blue);
+  margin-bottom: 12px;
+}
+.title {
+  font-family: var(--font-display); font-size: clamp(32px,4.5vw,52px); font-weight: 700;
+  letter-spacing: -0.01em; text-transform: uppercase; color: var(--fg-1);
+  line-height: 1.05; margin-bottom: 16px;
+}
+.sub { font-family: var(--font-body); font-size: var(--t-body); color: var(--fg-3); max-width: 560px; margin-bottom: 28px; }
+.headerCtas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* ── ZO WERKT HET ────────────────────────────────────── */
+.stepsSection { background: var(--bg-0); border-bottom: 1px solid var(--stroke-hairline); }
+.stepsInner { max-width: var(--container-max); margin: 0 auto; padding: 80px var(--gutter); }
+.stepsGrid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 16px; margin-top: 40px;
+}
+@media (max-width: 960px) { .stepsGrid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .stepsGrid { grid-template-columns: 1fr; } }
+.step {
+  padding: 24px; background: var(--bg-1);
+  border: 1px solid var(--stroke-1); border-radius: var(--r-lg);
+}
+.stepTop { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.stepNumber {
+  font-family: var(--font-mono); font-size: 22px; font-weight: 600; color: var(--stroke-3);
+}
+.stepIcon {
+  width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+  background: rgba(46,107,255,0.08); border: 1px solid rgba(46,107,255,0.14);
+  border-radius: var(--r-md); color: var(--vdso-blue);
+}
+.stepLabel {
+  font-family: var(--font-display); font-size: 13px; font-weight: 600;
+  letter-spacing: 0.02em; text-transform: uppercase; color: var(--fg-1);
+  margin-bottom: 8px;
+}
+.stepBody { font-family: var(--font-body); font-size: var(--t-body-sm); color: var(--fg-3); line-height: 1.6; }
+
+/* ── WAAROM VDSO (feature) ───────────────────────────── */
+.feature { background: var(--bg-1); border-bottom: 1px solid var(--stroke-hairline); }
+.featureLayout {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: center;
+  max-width: var(--container-max); margin: 0 auto;
+  padding: 80px var(--gutter);
+}
+@media (max-width: 768px) {
+  .featureLayout { grid-template-columns: 1fr; gap: 40px; padding: 56px var(--gutter); }
+}
+.featureVisual {
+  position: relative; aspect-ratio: 4/3;
+  background-size: cover; background-position: center;
+  border-radius: var(--r-xl);
+  box-shadow: inset 0 0 0 1px var(--stroke-1);
+  overflow: hidden;
+}
+
+.pillars {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 10px; margin-top: 28px;
+}
+@media (max-width: 480px) { .pillars { grid-template-columns: 1fr 1fr; gap: 8px; } }
+.pillar {
+  padding: 20px; background: rgba(255,255,255,0.02);
+  border: 1px solid var(--stroke-1); border-radius: var(--r-lg);
+}
+.pillarIcon {
+  width: 30px; height: 30px; display: flex; align-items: center;
+  justify-content: center; margin-bottom: 12px; color: var(--fg-3);
+}
+.pillarLabel {
+  font-family: var(--font-display); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-4);
+  margin-bottom: 2px;
+}
+.pillarValue {
+  font-family: var(--font-mono); font-size: 14px; font-weight: 600; color: var(--fg-1);
+}
+
+/* ── SLUITENDE CTA ───────────────────────────────────── */
+.closingCta {
+  max-width: var(--container-max); margin: 0 auto;
+  padding: 96px var(--gutter);
+  text-align: center;
+}
+.closingTitle {
+  font-family: var(--font-display); font-size: clamp(28px,3.5vw,44px); font-weight: 700;
+  letter-spacing: -0.01em; text-transform: uppercase; color: var(--fg-1);
+  line-height: 1.05; margin-bottom: 32px;
+}
+.closingCtas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* ── FOOTER ──────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid var(--stroke-hairline);
+  max-width: var(--container-max); margin: 0 auto;
+  padding: 32px var(--gutter);
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+}
+.back {
+  font-family: var(--font-display); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-4);
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+  transition: color 160ms;
+}
+.back:hover { color: var(--fg-2); }
+.legal { font-family: var(--font-mono); font-size: 10px; color: var(--fg-4); }

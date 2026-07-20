@@ -6,9 +6,10 @@ import { Phone, ArrowRight, Menu, X } from 'lucide-react'
 import styles from './Nav.module.css'
 
 const NAV_LINKS = [
-  { href: '/#aanbod',      label: 'Aanbod' },
-  { href: '/#occasions',   label: 'Occasions' },
+  { href: '/aanbod',       label: 'Aanbod' },
+  { href: '/#occasions',   label: 'Werkwijze' },
   { href: '/#inkoop',      label: 'Inkoop' },
+  { href: '/verkopen',     label: 'Verkopen' },
   { href: '/#consignatie', label: 'Consignatie' },
   { href: '/#op-afspraak', label: 'Op afspraak' },
 ]
@@ -33,7 +34,7 @@ export default function Nav({ onProefrit }: { onProefrit?: () => void }) {
     <>
       <nav className={styles.nav} id="nav">
         <Link href="/" className={styles.logo} onClick={close}>
-          <Image src="/uploads/logo-concept-navigatie.png" alt="VDSO" height={28} width={100} priority />
+          <Image src="/uploads/logo-vdso-webversie-klein.png" alt="VDSO" height={22} width={119} priority />
         </Link>
 
         {/* Desktop links */}
@@ -55,14 +56,19 @@ export default function Nav({ onProefrit }: { onProefrit?: () => void }) {
           </button>
         </div>
 
-        {/* Mobile: hamburger */}
-        <button
-          className={styles.hamburger}
-          onClick={() => setMenuOpen(o => !o)}
-          aria-label={menuOpen ? 'Menu sluiten' : 'Menu openen'}
-        >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        {/* Mobile: bel-icoon + hamburger */}
+        <div className={styles.mobileTopActions}>
+          <a href="tel:+31622580038" className={styles.mobileTopPhone} aria-label="Bel VDSO">
+            <Phone size={18} />
+          </a>
+          <button
+            className={styles.hamburger}
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label={menuOpen ? 'Menu sluiten' : 'Menu openen'}
+          >
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </nav>
 
       {/* Mobile menu overlay */}

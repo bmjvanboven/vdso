@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Zap, Navigation, ArrowRight } from 'lucide-react'
 import type { Car, BadgeStatus } from '@/lib/supabase/types'
+import { carSlug } from '@/lib/slug'
 import styles from './CarCard.module.css'
 
 const BADGE_COLOR: Record<BadgeStatus, string> = {
@@ -27,7 +28,7 @@ export default function CarCard({ car, onProefrit }: { car: Car; onProefrit?: ()
 
   return (
     <article className={`${styles.card} ${isSold ? styles.sold : ''}`}>
-      <Link href={`/aanbod/${car.id}`} className={styles.mediaLink}>
+      <Link href={`/aanbod/${carSlug(car)}`} className={styles.mediaLink}>
       <div className={styles.media}>
         <span className={styles.badge} style={{ color }}>
           <span className={styles.dot} />

@@ -77,6 +77,12 @@
 }
 .select option { background: #0A0C14; }
 .submit { width: 100%; justify-content: center; margin-top: var(--s-2); padding: 14px; font-size: 11px; }
+.submit:disabled { opacity: 0.6; cursor: default; }
+.errorMessage {
+  font-family: var(--font-body); font-size: var(--t-body-sm); color: var(--vdso-danger);
+  background: rgba(229,72,77,0.10); border: 1px solid rgba(229,72,77,0.25);
+  border-radius: var(--r-md); padding: 10px 14px; margin-top: 2px;
+}
 
 .success {
   display: flex; flex-direction: column; align-items: center;

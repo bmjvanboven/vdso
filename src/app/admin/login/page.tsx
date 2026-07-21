@@ -24,7 +24,7 @@ export default function AdminLogin() {
   return (
     <div className={styles.page}>
       <div className={styles.card}>
-        <Image src="/uploads/logo-vdso-webversie-klein.png" alt="VDSO" width={110} height={20} className={styles.logo} />
+        <Image src="/uploads/logo-vdso-web.png" alt="VDSO" width={110} height={20} className={styles.logo} />
         <p className={styles.eyebrow}>Admin</p>
         <h1 className={styles.title}>Inloggen.</h1>
         <form onSubmit={handleSubmit} className={styles.form}>

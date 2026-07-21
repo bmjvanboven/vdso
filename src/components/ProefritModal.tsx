@@ -13,6 +13,8 @@ interface Props {
 
 export default function ProefritModal({ isOpen, onClose, cars = [], preselect }: Props) {
   const [success, setSuccess] = useState(false)
+  const [error, setError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -33,14 +35,26 @@ export default function ProefritModal({ isOpen, onClose, cars = [], preselect }:
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    setSubmitting(true)
+    setError('')
     const fd = new FormData(e.currentTarget)
-    await fetch('/api/proefrit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(Object.fromEntries(fd)),
-    })
-    setSuccess(true)
-    setTimeout(() => { onClose(); setTimeout(() => setSuccess(false), 400) }, 3000)
+    try {
+      const res = await fetch('/api/proefrit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(fd)),
+      })
+      if (!res.ok) {
+        const data = await res.json().catch(() => null)
+        throw new Error(data?.error || 'Er ging iets mis. Probeer het opnieuw.')
+      }
+      setSuccess(true)
+      setTimeout(() => { onClose(); setTimeout(() => setSuccess(false), 400) }, 3000)
+    } catch {
+      setError('Aanvraag versturen is niet gelukt. Controleer uw gegevens en probeer het opnieuw.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -86,8 +100,9 @@ export default function ProefritModal({ isOpen, onClose, cars = [], preselect }:
                 <label className={styles.label} htmlFor="pf-datum">Gewenste datum</label>
                 <input className={styles.input} id="pf-datum" name="datum" type="date" />
               </div>
-              <button type="submit" className={`btn-primary ${styles.submit}`}>
-                Verstuur aanvraag <ArrowRight size={13} />
+              {error && <p className={styles.errorMessage}>{error}</p>}
+              <button type="submit" className={`btn-primary ${styles.submit}`} disabled={submitting}>
+                {submitting ? 'Versturen…' : <>Verstuur aanvraag <ArrowRight size={13} /></>}
               </button>
             </form>
           </>

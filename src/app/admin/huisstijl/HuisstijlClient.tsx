@@ -4,9 +4,8 @@ import adminStyles from '../admin.module.css'
 import styles from './huisstijl.module.css'
 
 const LOGOS = [
-  { name: 'Logo — web (klein)', hint: '400 × 74 · header/favicon-formaat', src: '/uploads/logo-vdso-webversie-klein.png', width: 200, height: 37, dark: true },
-  { name: 'Logo — web (groot)', hint: '1021 × 189 · print/hoge resolutie', src: '/huisstijl/logo-groot.png', width: 200, height: 37, dark: true },
-  { name: 'Logo — blauwe O', hint: '1021 × 189 · accentvariant', src: '/huisstijl/logo-blauwe-o.png', width: 200, height: 37, dark: true },
+  { name: 'Logo — web', hint: '490 × 91 · header/scherm-formaat', src: '/uploads/logo-vdso-web.png', width: 200, height: 37, dark: true },
+  { name: 'Logo — drukwerk', hint: '2042 × 376 · print/hoge resolutie', src: '/uploads/logo-vdso-drukwerk.png', width: 200, height: 37, dark: true },
 ]
 
 const SWATCHES = [
@@ -59,7 +58,7 @@ export default function HuisstijlClient() {
 
         <div className={styles.section}>
           <p className={styles.sectionLabel}>Sfeerbeeld</p>
-          <Image className={styles.moodImage} src="/huisstijl/logo-sfeerafbeelding.jpg" alt="VDSO logo sfeerbeeld" width={1208} height={864} />
+          <Image className={styles.moodImage} src="/uploads/vdso-logo-kleur-blauw.jpg" alt="VDSO logo sfeerbeeld" width={2416} height={1728} />
         </div>
 
         <div className={styles.section}>

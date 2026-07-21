@@ -15,7 +15,7 @@ import PreviewGate from '@/components/PreviewGate'
 import type { Car as CarType } from '@/lib/supabase/types'
 import styles from './HomeClient.module.css'
 
-export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGate: boolean }) {
+export default function HomeClient({ cars, showGate, totalPk }: { cars: CarType[]; showGate: boolean; totalPk: number }) {
   const [modalOpen, setModalOpen] = useState(false)
   const heroBgRef = useRef<HTMLDivElement>(null)
 
@@ -62,8 +62,8 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
         <div className={styles.specsInner}>
           <div className={styles.specItem}>
             <p className={styles.specLabel}>Vermogen</p>
-            <p className={styles.specValue}>500<span className={styles.specUnit}>+</span></p>
-            <p className={styles.specSub}>Pk om van te dromen</p>
+            <p className={styles.specValue}>{totalPk}</p>
+            <p className={styles.specSub}>Pk op voorraad</p>
           </div>
           <div className={styles.specItem}>
             <p className={styles.specLabel}>Passie</p>
@@ -88,9 +88,10 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
             <h2 className="section-title">Alleen de beste.<br />Altijd.</h2>
             <p className="section-body">Elk voertuig doorloopt een uitgebreide inspectie. Rijhistorie, technische staat en interieur-conditie worden persoonlijk beoordeeld voor opname in ons bestand.</p>
             <div className={styles.pillars}>
-              <Pillar icon={<ClipboardCheck size={17} />} label="Inspectie" value="Grondig gecontroleerd" />
+              <Pillar icon={<ClipboardCheck size={17} />} label="Inspectie" value="Grondige meerpuntscheck" />
               <Pillar icon={<History size={17} />} label="Rijhistorie" value="Geverifieerd" />
               <Pillar icon={<Award size={17} />} label="Certificering" value="RDW erkend" />
+              <Pillar icon={<FileText size={17} />} label="Documentatie" value="Volledig transparant" />
             </div>
             <div className={styles.showroomCtas} style={{ marginTop: 28 }}>
               <Link href="/aanbod" className="btn-primary">
@@ -203,7 +204,7 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
 
       {/* ── OP AFSPRAAK ───────────────────────────────── */}
       <section id="op-afspraak" className={styles.feature}>
-        <div className={styles.featureLayout}>
+        <div className={`${styles.featureLayout} ${styles.featureLayoutTight}`}>
           <div className={styles.showroomImg}>
             <Image src="/uploads/pand-vdso-afbeelding.jpg" alt="VDSO" fill style={{ objectFit: 'cover', filter: 'grayscale(15%) brightness(0.88)' }} />
             <div className={styles.showroomImgOverlay} />
@@ -211,8 +212,7 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
           <div>
             <p className="section-label">Op afspraak</p>
             <h2 className="section-title">Maak kennis<br />in persoon.</h2>
-            <p className="section-body">Wij ontvangen u uitsluitend op afspraak. Plan een proefrit, bespreek uw configuratie of maak kennis met het VDSO-team.</p>
-            <p className="section-body">Mijn naam is Stijnn, 32 jaar, en auto&apos;s vormen al mijn hele leven een passie. Opgegroeid in een automotivegezin, opgeleid aan de IVA en afgestudeerd met een International Sales Bachelor in de Verenigde Staten, heb ik een sterke combinatie van vakkennis en commerciële ervaring opgebouwd.</p>
+            <p className="section-body">Mijn naam is Stijn, 32 jaar, en auto&apos;s vormen al mijn hele leven een passie. Ik ben opgegroeid in een automotive gezin. Opgeleid aan de IVA en afgestudeerd met een International Sales Bachelor in de Verenigde Staten, heb ik een sterke combinatie van vakkennis en commerciële ervaring opgebouwd.</p>
             <p className="section-body">Na jarenlang werkzaam te zijn geweest in diverse sales- en accountmanagementfuncties, heb ik besloten mijn passie te volgen. Vandaag de dag richt ik mij volledig op het aanbieden van zorgvuldig geselecteerde, luxe occasions. Betrouwbaarheid, kwaliteit en persoonlijk contact staan daarbij altijd centraal.</p>
             <div className={styles.showroomCtas}>
               <button className="btn-primary" onClick={() => setModalOpen(true)}>
@@ -220,12 +220,15 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
               </button>
               <a href="mailto:info@vdso.nl" className="btn-secondary">Contact</a>
             </div>
-            <div className={styles.showroomDetails}>
-              <ShowroomDetail icon={<MapPin size={14} />} label="Adres" value="Wiegershof 9, 5751 XJ Deurne" />
-              <ShowroomDetail icon={<Clock size={14} />} label="Openingstijden" value="Uitsluitend op afspraak" />
-              <ShowroomDetail icon={<Phone size={14} />} label="Contact" value="+31 6 22580038 · info@vdso.nl" />
-              <ShowroomDetail icon={<Building2 size={14} />} label="KvK" value="42015299" />
-            </div>
+            <p className={`section-body ${styles.showroomNote}`}>Wij ontvangen u uitsluitend op afspraak. Plan een proefrit, bespreek uw configuratie of maak kennis met het VDSO-team.</p>
+          </div>
+        </div>
+        <div className={styles.showroomDetailsOuter}>
+          <div className={styles.showroomDetails}>
+            <ShowroomDetail icon={<MapPin size={16} />} label="Adres" value="Wiegershof 9, 5751 XJ Deurne" />
+            <ShowroomDetail icon={<Clock size={16} />} label="Openingstijden" value="Uitsluitend op afspraak" />
+            <ShowroomDetail icon={<Phone size={16} />} label="Contact" value="+31 6 22580038 · info@vdso.nl" />
+            <ShowroomDetail icon={<Building2 size={16} />} label="KvK" value="42015299" />
           </div>
         </div>
       </section>
@@ -236,7 +239,7 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
           <div className={styles.footerTop}>
             <div className={styles.footerBrand}>
               <Link href="/">
-                <Image src="/uploads/logo-vdso-webversie-klein.png" alt="VDSO" width={80} height={15} />
+                <Image src="/uploads/logo-vdso-web.png" alt="VDSO" width={80} height={15} />
               </Link>
               <p className={styles.footerTagline}>Precision. Performance. Minimalist Luxury.</p>
             </div>
@@ -245,9 +248,7 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
                 <p className={styles.footerColTitle}>Aanbod</p>
                 <ul className={styles.footerLinks}>
                   <li><Link href="/aanbod">Alle occasions</Link></li>
-                  <li><Link href="/aanbod">Mercedes</Link></li>
-                  <li><Link href="/aanbod">BMW M-series</Link></li>
-                  <li><Link href="/aanbod">Porsche</Link></li>
+                  <li><Link href="/diensten">Diensten</Link></li>
                 </ul>
               </div>
               <div>
@@ -260,20 +261,10 @@ export default function HomeClient({ cars, showGate }: { cars: CarType[]; showGa
                 </ul>
               </div>
               <div>
-                <p className={styles.footerColTitle}>Informatie</p>
-                <ul className={styles.footerLinks}>
-                  <li><a href="#">Garantie</a></li>
-                  <li><a href="#">RDW erkenning</a></li>
-                  <li><a href="#">Veelgestelde vragen</a></li>
-                  <li><a href="#">Nieuws</a></li>
-                </ul>
-              </div>
-              <div>
                 <p className={styles.footerColTitle}>Over VDSO</p>
                 <ul className={styles.footerLinks}>
-                  <li><a href="#">Ons verhaal</a></li>
-                  <li><a href="#">Carrière</a></li>
-                  <li><a href="#">Pers</a></li>
+                  <li><a href="#op-afspraak">Ons verhaal</a></li>
+                  <li><a href="#occasions">RDW erkenning</a></li>
                   <li><a href="#op-afspraak">Contact</a></li>
                 </ul>
               </div>

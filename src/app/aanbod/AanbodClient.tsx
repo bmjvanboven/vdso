@@ -36,7 +36,7 @@ export default function AanbodClient({ cars, showGate }: { cars: Car[]; showGate
       <div className={styles.header}>
         <p className={styles.eyebrow}>VDSO · Deurne</p>
         <h1 className={styles.title}>Ons aanbod.</h1>
-        <p className={styles.sub}>Elk voertuig persoonlijk geselecteerd: RS-modellen, M-series en AMG, uitsluitend de beste occasions.</p>
+        <p className={styles.sub}>Elk voertuig persoonlijk geselecteerd, uitsluitend de beste occasions.</p>
         <p className={styles.count}><span>{visible.length}</span> voertuigen</p>
       </div>
 
@@ -69,7 +69,7 @@ export default function AanbodClient({ cars, showGate }: { cars: Car[]; showGate
 
       <footer className={styles.footer}>
         <Link href="/" className={styles.back}><ArrowLeft size={12} /> Terug naar home</Link>
-        <Image src="/uploads/logo-vdso-webversie-klein.png" alt="VDSO" width={80} height={15} style={{ opacity: 0.5 }} />
+        <Image src="/uploads/logo-vdso-web.png" alt="VDSO" width={80} height={15} style={{ opacity: 0.5 }} />
         <p className={styles.legal}>© 2026 VDSO B.V. · RDW erkend</p>
       </footer>
     </>

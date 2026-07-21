@@ -136,7 +136,7 @@ export default function FactuurClient() {
 
       <div ref={pageRef} className={styles.page}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid rgba(10,22,40,0.12)', paddingBottom: '28px' }}>
-          <Image src="/uploads/logo-vdso-webversie-klein.png" alt="VDSO" width={216} height={40} unoptimized priority style={{ height: '40px', width: 'auto', display: 'block' }} />
+          <Image src="/uploads/logo-vdso-drukwerk.png" alt="VDSO" width={216} height={40} unoptimized priority style={{ height: '40px', width: 'auto', display: 'block' }} />
           <div style={{ textAlign: 'right', fontFamily: 'var(--font-mono)', fontSize: '11px', lineHeight: 1.6, color: 'var(--vdso-iron)', letterSpacing: '0.02em' }}>
             <div>Wiegershof 9, 5751 XJ</div>
             <div>info@vdso.nl</div>

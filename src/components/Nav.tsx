@@ -8,9 +8,7 @@ import styles from './Nav.module.css'
 const NAV_LINKS = [
   { href: '/aanbod',       label: 'Aanbod' },
   { href: '/#occasions',   label: 'Werkwijze' },
-  { href: '/#inkoop',      label: 'Inkoop' },
-  { href: '/verkopen',     label: 'Verkopen' },
-  { href: '/#consignatie', label: 'Consignatie' },
+  { href: '/diensten',     label: 'Diensten' },
   { href: '/#op-afspraak', label: 'Op afspraak' },
 ]
 
@@ -34,7 +32,7 @@ export default function Nav({ onProefrit }: { onProefrit?: () => void }) {
     <>
       <nav className={styles.nav} id="nav">
         <Link href="/" className={styles.logo} onClick={close}>
-          <Image src="/uploads/logo-vdso-webversie-klein.png" alt="VDSO" height={22} width={119} priority />
+          <Image src="/uploads/logo-vdso-web.png" alt="VDSO" height={22} width={119} priority />
         </Link>
 
         {/* Desktop links */}

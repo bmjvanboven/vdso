@@ -80,10 +80,10 @@ export default function PageLoader() {
       style={{ pointerEvents: visible ? 'all' : 'none' }}
     >
       <Image
-        src="/uploads/logo-vdso-webversie-klein.png"
+        src="/uploads/logo-vdso-web.png"
         alt="VDSO"
-        width={400}
-        height={74}
+        width={490}
+        height={91}
         priority
         className={`${styles.logo} ${logoVisible ? styles.visible : ''}`}
       />

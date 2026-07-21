@@ -131,7 +131,7 @@ export default function VisitekaartjeClient() {
           <div style={{ position: 'absolute', width: '50mm', height: '50mm', borderRadius: '50%', top: '18mm', left: '52mm', background: 'var(--grad-blue-glow)', opacity: 0.7 }} />
           <div style={{ position: 'absolute', inset: 0, background: 'var(--grad-vignette)' }} />
           <Image
-            src="/huisstijl/logo-groot.png" alt="" width={270} height={50} unoptimized
+            src="/uploads/logo-vdso-drukwerk.png" alt="" width={270} height={50} unoptimized
             style={{ position: 'absolute', height: '11mm', width: 'auto', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', opacity: 0.96 }}
           />
         </div>
@@ -140,7 +140,7 @@ export default function VisitekaartjeClient() {
           <div style={{ position: 'absolute', inset: '1mm', border: '1px solid rgba(190,210,255,0.14)', borderRadius: '1mm' }} />
           <div style={{ position: 'absolute', top: '4mm', right: '5mm', fontFamily: 'var(--font-mono)', fontSize: '5px', letterSpacing: '0.08em', color: 'var(--vdso-iron)' }}>RDW ERKEND</div>
           <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2.4mm' }}>
-            <Image src="/huisstijl/logo-groot.png" alt="" width={230} height={43} unoptimized style={{ height: '9mm', width: 'auto', opacity: 0.98 }} />
+            <Image src="/uploads/logo-vdso-drukwerk.png" alt="" width={230} height={43} unoptimized style={{ height: '9mm', width: 'auto', opacity: 0.98 }} />
             <div style={eyebrowStyle}>Premium Occasions &middot; Deurne</div>
             <div style={{ width: '9mm', height: '0.4mm', background: 'var(--vdso-blue)' }} />
           </div>

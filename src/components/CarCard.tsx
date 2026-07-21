@@ -26,32 +26,38 @@ export default function CarCard({ car, onProefrit }: { car: Car; onProefrit?: ()
   const isSold = car.badge_status === 'verkocht'
   const color  = BADGE_COLOR[car.badge_status]
 
+  const media = (
+    <div className={styles.media}>
+      <span className={styles.badge} style={{ color }}>
+        <span className={styles.dot} />
+        {BADGE_LABEL[car.badge_status]}
+      </span>
+      {car.fotos?.[0] ? (
+        <Image
+          src={car.fotos[0]}
+          alt={`${car.merk} ${car.model}`}
+          fill
+          sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw"
+          className={styles.img}
+        />
+      ) : (
+        <div className={styles.placeholder} />
+      )}
+      {isSold && (
+        <div className={styles.soldOverlay}>
+          <span className={styles.soldLabel}>Verkocht</span>
+        </div>
+      )}
+    </div>
+  )
+
   return (
     <article className={`${styles.card} ${isSold ? styles.sold : ''}`}>
-      <Link href={`/aanbod/${carSlug(car)}`} className={styles.mediaLink}>
-      <div className={styles.media}>
-        <span className={styles.badge} style={{ color }}>
-          <span className={styles.dot} />
-          {BADGE_LABEL[car.badge_status]}
-        </span>
-        {car.fotos?.[0] ? (
-          <Image
-            src={car.fotos[0]}
-            alt={`${car.merk} ${car.model}`}
-            fill
-            sizes="(max-width:768px) 100vw, (max-width:1200px) 50vw, 33vw"
-            className={styles.img}
-          />
-        ) : (
-          <div className={styles.placeholder} />
-        )}
-        {isSold && (
-          <div className={styles.soldOverlay}>
-            <span className={styles.soldLabel}>Verkocht</span>
-          </div>
-        )}
-      </div>
-      </Link>
+      {isSold ? (
+        <div className={styles.mediaLink}>{media}</div>
+      ) : (
+        <Link href={`/aanbod/${carSlug(car)}`} className={styles.mediaLink}>{media}</Link>
+      )}
       <div className={styles.body}>
         <p className={styles.eyebrow}>{car.merk} · {car.jaar}</p>
         <h2 className={styles.name}>{car.model}</h2>

@@ -29,7 +29,7 @@ export default function PreviewGate() {
 
   return (
     <div className={styles.gate}>
-      <Image src="/uploads/logo-vdso-webversie-klein.png" alt="VDSO" width={120} height={22} className={styles.logo} priority />
+      <Image src="/uploads/logo-vdso-web.png" alt="VDSO" width={120} height={22} className={styles.logo} priority />
       <p className={styles.eyebrow}>Private Preview</p>
       <h2 className={styles.title}>Toegang vereist.</h2>
       <form className={styles.form} onSubmit={handleSubmit}>

@@ -1,5 +1,25 @@
 export type DescriptionBlock = { type: 'p'; text: string } | { type: 'ul' | 'ol'; items: string[] }
 
+// Normaliseert lijst-achtige tekst (getypt of geplakt) naar echte "• "/"1. "-regels,
+// zodat bullets ook zichtbaar kloppen in het tekstveld zelf — niet alleen in de
+// voorvertoning eronder. Volgt dezelfde herkenning als parseDescription hierboven.
+export function normalizeListText(text: string): string {
+  const groups = text.split(/\r?\n\s*\r?\n/)
+  const normalizedGroups = groups.map(group => {
+    const lines = group.split(/\r?\n/)
+    const nonEmpty = lines.map(l => l.trim()).filter(Boolean)
+    if (nonEmpty.length < 2) return group
+
+    const stripped = nonEmpty.map(stripMarker)
+    const ordered = stripped.some(s => s.ordered)
+    if (ordered) {
+      return stripped.map((s, i) => `${i + 1}. ${s.text}`).join('\n')
+    }
+    return stripped.map(s => `• ${s.text}`).join('\n')
+  })
+  return normalizedGroups.join('\n\n')
+}
+
 function stripMarker(line: string): { text: string; ordered: boolean; marked: boolean } {
   const bulletMatch = line.match(/^[-•*]\s+(.*)/)
   if (bulletMatch) return { text: bulletMatch[1], ordered: false, marked: true }

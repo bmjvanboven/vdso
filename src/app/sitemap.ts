@@ -15,6 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     { url: SITE_URL, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
     { url: `${SITE_URL}/aanbod`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
+    { url: `${SITE_URL}/diensten`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/verkopen`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     ...cars.map(c => ({
       url: `${SITE_URL}/aanbod/${carSlug(c)}`,

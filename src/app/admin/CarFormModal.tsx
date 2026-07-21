@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import type { Car, BadgeStatus } from '@/lib/supabase/types'
 import { BADGE_LABELS } from '@/lib/supabase/types'
-import { parseDescription } from '@/lib/description'
+import { parseDescription, normalizeListText } from '@/lib/description'
 import SpecsEditor from './SpecsEditor'
 import styles from './carFormModal.module.css'
 
@@ -75,6 +75,38 @@ export default function CarFormModal({ car, newSortOrder, onClose, onSaved }: Pr
 
   function set<K extends keyof typeof form>(key: K, val: (typeof form)[K]) {
     setForm(f => ({ ...f, [key]: val }))
+  }
+
+  // Plakken van (bijv. ChatGPT-)tekst direct normaliseren naar echte "• "/"1. "-regels,
+  // zodat bullets ook in het tekstveld zelf kloppen — niet pas in de voorvertoning eronder.
+  function handleDescriptionPaste(e: React.ClipboardEvent<HTMLTextAreaElement>) {
+    e.preventDefault()
+    const normalized = normalizeListText(e.clipboardData.getData('text/plain'))
+    const el = e.currentTarget
+    const start = el.selectionStart
+    const end = el.selectionEnd
+    const current = form.omschrijving ?? ''
+    const next = current.slice(0, start) + normalized + current.slice(end)
+    set('omschrijving', next || null)
+    requestAnimationFrame(() => { el.selectionStart = el.selectionEnd = start + normalized.length })
+  }
+
+  // Live "- " of "* " aan het begin van een regel omzetten naar een echte bullet "• ",
+  // zoals bij Notion/Word — direct zichtbaar tijdens het typen.
+  function handleDescriptionKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (e.key !== ' ') return
+    const el = e.currentTarget
+    if (el.selectionStart !== el.selectionEnd) return
+    const pos = el.selectionStart
+    const value = form.omschrijving ?? ''
+    const lineStart = value.lastIndexOf('\n', pos - 1) + 1
+    const linePrefix = value.slice(lineStart, pos)
+    if (linePrefix !== '-' && linePrefix !== '*') return
+    e.preventDefault()
+    const next = value.slice(0, lineStart) + '• ' + value.slice(pos)
+    set('omschrijving', next)
+    const newPos = lineStart + 2
+    requestAnimationFrame(() => { el.selectionStart = el.selectionEnd = newPos })
   }
 
   async function uploadPhoto(file: File) {
@@ -224,7 +256,15 @@ export default function CarFormModal({ car, newSortOrder, onClose, onSaved }: Pr
 
           <div className={styles.field}>
             <label className={styles.label}>Omschrijving</label>
-            <textarea className={styles.textarea} value={form.omschrijving ?? ''} onChange={e => set('omschrijving', e.target.value || null)} rows={6} placeholder="Optionele beschrijving…" />
+            <textarea
+              className={styles.textarea}
+              value={form.omschrijving ?? ''}
+              onChange={e => set('omschrijving', e.target.value || null)}
+              onPaste={handleDescriptionPaste}
+              onKeyDown={handleDescriptionKeyDown}
+              rows={6}
+              placeholder="Optionele beschrijving…"
+            />
             {form.omschrijving && (
               <div className={styles.descPreview}>
                 <p className={styles.descPreviewLabel}>Voorvertoning op de website</p>

@@ -120,6 +120,8 @@
 @media (max-width: 768px) {
   .featureLayout { grid-template-columns: 1fr; gap: 40px; padding: 56px var(--gutter); }
 }
+.featureLayoutTight { padding-bottom: 0; }
+@media (max-width: 768px) { .featureLayoutTight { padding-bottom: 0; } }
 
 .featureVisual {
   position: relative; aspect-ratio: 4/3;
@@ -214,27 +216,31 @@
   background: linear-gradient(180deg, transparent 55%, rgba(5,6,8,0.48) 100%);
   pointer-events: none;
 }
-.showroomDetails {
-  margin-top: 36px; margin-bottom: 0; padding-top: 24px;
+.showroomDetailsOuter {
+  max-width: var(--container-max); margin: 0 auto;
+  padding: 32px var(--gutter) 80px;
   border-top: 1px solid var(--stroke-hairline);
-  display: flex; flex-wrap: wrap; gap: 16px 32px;
 }
+@media (max-width: 768px) { .showroomDetailsOuter { padding: 24px var(--gutter) 56px; } }
+.showroomDetails {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+}
+@media (max-width: 640px) { .showroomDetails { grid-template-columns: repeat(2, 1fr); } }
 .showroomDetail {
-  display: flex; align-items: flex-start; gap: 10px;
+  padding: 16px 14px;
+  background: var(--bg-1); border: 1px solid var(--stroke-1);
+  border-radius: var(--r-lg);
 }
-.showroomDetailIcon {
-  width: 20px; height: 20px; display: flex; align-items: center;
-  justify-content: center; flex-shrink: 0; margin-top: 1px;
-  color: var(--fg-4);
-}
+.showroomDetailIcon { color: var(--vdso-blue); margin-bottom: 8px; }
 .showroomDetailLabel {
   font-family: var(--font-display); font-size: 9px; font-weight: 500;
   letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-4);
-  margin-bottom: 2px;
+  margin-bottom: 4px;
 }
-.showroomDetailValue { font-size: 12px; color: var(--fg-3); }
+.showroomDetailValue { font-size: 12px; font-weight: 600; color: var(--fg-1); }
 .showroomCtas { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
 @media (max-width: 480px) { .showroomCtas { flex-direction: column; } }
+.showroomNote { margin-top: var(--s-8); }
 @media (max-width: 480px) { .financeAmount { font-size: 40px; } }
 
 /* ── FOOTER ──────────────────────────────────────────── */
@@ -256,7 +262,7 @@
   letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-4);
 }
 .footerCols {
-  display: grid; grid-template-columns: repeat(4,1fr); gap: 32px;
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 32px;
 }
 @media (max-width: 768px) { .footerCols { grid-template-columns: repeat(2,1fr); gap: 24px; } }
 @media (max-width: 480px) { .footerCols { grid-template-columns: repeat(2,1fr); gap: 20px; } }

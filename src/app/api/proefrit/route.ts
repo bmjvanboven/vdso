@@ -1,34 +1,39 @@
 import { NextResponse } from 'next/server'
+import { Resend } from 'resend'
 
 export async function POST(req: Request) {
   try {
     const body = await req.json()
     const { naam, telefoon, auto, datum } = body
 
-    if (!naam || !telefoon || !auto || !datum) {
+    if (!naam || !telefoon) {
       return NextResponse.json({ error: 'Vul alle velden in' }, { status: 400 })
     }
 
-    // Log aanvraag (server-side)
     console.log('[Proefrit aanvraag]', { naam, telefoon, auto, datum, ts: new Date().toISOString() })
 
-    // Optioneel: stuur e-mail via Resend
-    // Uncomment en configureer RESEND_API_KEY + TO_EMAIL in .env.local
-    //
-    // const { Resend } = await import('resend')
-    // const resend = new Resend(process.env.RESEND_API_KEY)
-    // await resend.emails.send({
-    //   from: 'VDSO <noreply@vdso.nl>',
-    //   to: process.env.PROEFRIT_EMAIL ?? 'info@vdso.nl',
-    //   subject: `Proefrit aanvraag — ${auto}`,
-    //   html: `
-    //     <h2>Nieuwe proefrit aanvraag</h2>
-    //     <p><strong>Naam:</strong> ${naam}</p>
-    //     <p><strong>Telefoon:</strong> ${telefoon}</p>
-    //     <p><strong>Auto:</strong> ${auto}</p>
-    //     <p><strong>Datum:</strong> ${datum}</p>
-    //   `,
-    // })
+    if (process.env.RESEND_API_KEY) {
+      try {
+        const resend = new Resend(process.env.RESEND_API_KEY)
+        await resend.emails.send({
+          from: 'VDSO Website <onboarding@resend.dev>',
+          to: process.env.PROEFRIT_EMAIL ?? 'info@vdso.nl',
+          replyTo: undefined,
+          subject: `Proefrit aanvraag — ${auto || 'onbekend voertuig'}`,
+          html: `
+            <h2>Nieuwe proefrit aanvraag</h2>
+            <p><strong>Naam:</strong> ${naam}</p>
+            <p><strong>Telefoon:</strong> ${telefoon}</p>
+            <p><strong>Auto:</strong> ${auto || 'Niet opgegeven'}</p>
+            <p><strong>Gewenste datum:</strong> ${datum || 'Niet opgegeven'}</p>
+          `,
+        })
+      } catch (emailError) {
+        console.error('[Proefrit e-mail mislukt]', emailError)
+      }
+    } else {
+      console.warn('[Proefrit] RESEND_API_KEY ontbreekt — e-mail niet verstuurd, alleen gelogd')
+    }
 
     return NextResponse.json({ ok: true })
   } catch {

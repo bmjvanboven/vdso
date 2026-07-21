@@ -5,7 +5,7 @@ import AanbodClient from './AanbodClient'
 
 export const metadata: Metadata = {
   title: 'Ons aanbod',
-  description: 'Bekijk het volledige aanbod premium occasions van VDSO in Deurne — RS-modellen, M-series en AMG, zorgvuldig geselecteerd en direct leverbaar.',
+  description: 'Bekijk het volledige aanbod premium occasions van VDSO in Deurne — uitsluitend de beste occasions, zorgvuldig geselecteerd en direct leverbaar.',
   alternates: { canonical: '/aanbod' },
 }
 

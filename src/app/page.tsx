@@ -20,5 +20,12 @@ export default async function HomePage() {
     .limit(3)
   const cars = (carsRaw ?? []) as Car[]
 
-  return <HomeClient cars={cars} showGate={showGate} />
+  const { data: pkRaw } = await supabase
+    .from('cars')
+    .select('pk')
+    .eq('is_visible', true)
+    .neq('badge_status', 'verkocht')
+  const totalPk = (pkRaw ?? []).reduce((sum, c) => sum + (c.pk ?? 0), 0)
+
+  return <HomeClient cars={cars} showGate={showGate} totalPk={totalPk} />
 }

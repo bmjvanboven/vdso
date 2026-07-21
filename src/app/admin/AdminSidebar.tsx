@@ -26,7 +26,7 @@ export default function AdminSidebar({ children }: { children?: React.ReactNode 
 
   return (
     <aside className={styles.sidebar}>
-      <Image src="/uploads/logo-vdso-webversie-klein.png" alt="VDSO" width={80} height={15} className={styles.sidebarLogo} />
+      <Image src="/uploads/logo-vdso-web.png" alt="VDSO" width={80} height={15} className={styles.sidebarLogo} />
       <nav className={styles.sidebarNav}>
         {NAV.map(item => (
           <Link key={item.href} href={item.href} className={`${styles.navItem} ${pathname === item.href ? styles.navActive : ''}`}>

@@ -1,11 +1,12 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft } from 'lucide-react'
 import AdminSidebar from '../AdminSidebar'
 import adminStyles from '../admin.module.css'
 import styles from '../templateViewer.module.css'
+import { elementsToPdf } from '@/lib/pdfExport'
 
 const labelStyle: React.CSSProperties = {
   fontFamily: 'var(--font-display)', fontSize: '10px', letterSpacing: '0.14em',
@@ -13,6 +14,8 @@ const labelStyle: React.CSSProperties = {
 }
 
 export default function BriefpapierClient() {
+  const pageRef = useRef<HTMLDivElement>(null)
+  const [exporting, setExporting] = useState(false)
   const datumRef = useRef<HTMLSpanElement>(null)
   const referentieRef = useRef<HTMLSpanElement>(null)
 
@@ -54,6 +57,16 @@ export default function BriefpapierClient() {
     URL.revokeObjectURL(url)
   }
 
+  async function handleExportPdf() {
+    if (!pageRef.current || exporting) return
+    setExporting(true)
+    try {
+      await elementsToPdf([{ element: pageRef.current, widthMm: 210, heightMm: 297 }], 'VDSO-briefpapier.pdf')
+    } finally {
+      setExporting(false)
+    }
+  }
+
   return (
     <div className={adminStyles.page}>
       <AdminSidebar />
@@ -63,13 +76,13 @@ export default function BriefpapierClient() {
         <Link href="/admin" className={styles.backBtn}><ArrowLeft size={14} /> Terug</Link>
         <div className={styles.toolbarActions}>
           <button className={styles.wordBtn} onClick={downloadWord}>Opslaan als Word</button>
-          <button className={styles.printBtn} onClick={() => window.print()}>Opslaan als PDF</button>
+          <button className={styles.printBtn} onClick={handleExportPdf} disabled={exporting}>{exporting ? 'Bezig…' : 'Opslaan als PDF'}</button>
         </div>
       </div>
 
-      <div className={styles.page}>
+      <div ref={pageRef} className={styles.page}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px solid rgba(10,22,40,0.12)', paddingBottom: '28px' }}>
-          <Image src="/uploads/logo-vdso-webversie-klein.png" alt="VDSO" width={216} height={40} priority style={{ height: '40px', width: 'auto', display: 'block' }} />
+          <Image src="/uploads/logo-vdso-webversie-klein.png" alt="VDSO" width={216} height={40} unoptimized priority style={{ height: '40px', width: 'auto', display: 'block' }} />
           <div style={{ textAlign: 'right', fontFamily: 'var(--font-mono)', fontSize: '11px', lineHeight: 1.6, color: 'var(--vdso-iron)', letterSpacing: '0.02em' }}>
             <div>Wiegershof 9, 5751 XJ</div>
             <div>info@vdso.nl</div>

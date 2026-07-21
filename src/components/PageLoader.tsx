@@ -7,6 +7,7 @@ import styles from './PageLoader.module.css'
 
 export default function PageLoader() {
   const pathname = usePathname()
+  const isAdmin = pathname.startsWith('/admin')
   const [visible, setVisible] = useState(true)
   const [logoVisible, setLogoVisible] = useState(false)
   const navigating = useRef(false)
@@ -33,6 +34,7 @@ export default function PageLoader() {
 
   // Initiële load
   useEffect(() => {
+    if (isAdmin) return
     show()
     const t = setTimeout(hide, 350)
     timers.current.push(t)
@@ -42,7 +44,7 @@ export default function PageLoader() {
 
   // Pathname verandert = nieuwe pagina geladen
   useEffect(() => {
-    if (!navigating.current) return
+    if (isAdmin || !navigating.current) return
     navigating.current = false
     hide()
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -50,6 +52,7 @@ export default function PageLoader() {
 
   // Klik op interne link = navigatie gestart
   useEffect(() => {
+    if (isAdmin) return
     const handleClick = (e: MouseEvent) => {
       const anchor = (e.target as HTMLElement).closest('a')
       if (!anchor) return
@@ -66,7 +69,10 @@ export default function PageLoader() {
     }
     document.addEventListener('click', handleClick)
     return () => document.removeEventListener('click', handleClick)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
+
+  if (isAdmin) return null
 
   return (
     <div

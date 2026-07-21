@@ -1,5 +1,15 @@
 .cardsWrap { width: 100%; }
 
+.variantRow { display: flex; gap: 8px; margin-top: 32px; }
+.variantBtn {
+  font-family: var(--font-display); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.10em; text-transform: uppercase; color: var(--vdso-iron);
+  background: transparent; border: 1px solid rgba(10,22,40,0.16); border-radius: var(--r-pill);
+  padding: 8px 16px; cursor: pointer; transition: color 160ms, border-color 160ms, background 160ms;
+}
+.variantBtn:hover { color: var(--vdso-navy); border-color: rgba(10,22,40,0.28); }
+.variantBtnActive, .variantBtnActive:hover { background: var(--vdso-blue); border-color: var(--vdso-blue); color: #fff; }
+
 .cardLabel {
   font-family: var(--font-display); font-size: 11px; letter-spacing: 0.14em;
   text-transform: uppercase; color: var(--vdso-iron); margin-top: 40px;
@@ -13,18 +23,11 @@
 .cardFront { background: var(--vdso-navy); }
 .cardBack { background: var(--vdso-black); }
 
-.printSheet { display: none; }
-
-@media print {
-  @page { margin: 0; }
-  .cardsWrap > *:not(.printSheet) { display: none !important; }
-  .printSheet { display: block !important; }
-  .printCard { position: relative; box-sizing: border-box; page-break-after: always; }
-  :global(body[data-bleed="0"]) .printCard { width: 85mm; height: 55mm; overflow: hidden; }
-  :global(body[data-bleed="1"]) .printCard { width: 91mm; height: 61mm; background: var(--vdso-navy); }
-  :global(body[data-bleed="0"]) .cutmark { display: none; }
-  :global(body[data-bleed="1"]) .cutmark { display: block; }
-  .printCard .cardSlot { position: absolute; inset: 0; }
-  :global(body[data-bleed="1"]) .printCard .cardSlot { inset: 3mm; }
-  .cutmark { position: absolute; background: #000; }
+/* Offscreen 91x61mm variant (3mm marge + snijmarkeringen), gebruikt om te
+   fotograferen voor de PDF-met-snijmarges-export. Nooit zichtbaar in de UI. */
+.exportCardBleed {
+  position: relative; box-sizing: border-box;
+  width: 91mm; height: 61mm; background: var(--vdso-navy);
 }
+.exportSlotBleed { position: absolute; inset: 3mm; }
+.exportCutmark { position: absolute; background: #000; }

@@ -1,0 +1,11 @@
+.wrap {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  background: #050608;
+}
+.spinner {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 3px solid var(--stroke-2);
+  border-top-color: var(--vdso-blue);
+  animation: spin 700ms linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
